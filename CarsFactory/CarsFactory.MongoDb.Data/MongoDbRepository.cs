@@ -28,10 +28,10 @@ namespace CarsFactory.MongoDb.Data
 
         public async Task<IList<Car>> GetCarsData()
         {
-            var teams = (await CarsCollection.Find(new BsonDocument()).ToListAsync())
+            var cars = (await CarsCollection.Find(new BsonDocument()).ToListAsync())
                 .Select(bs => BsonSerializer.Deserialize<Car>(bs)).ToList();
 
-            return teams;
+            return cars;
         }
 
     }
