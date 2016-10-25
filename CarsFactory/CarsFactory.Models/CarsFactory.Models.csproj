@@ -50,7 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
-    <Compile Include="CarPlatform.cs" />
+    <Compile Include="Contracts\IEngine.cs" />
+    <Compile Include="Contracts\IModel.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="Contracts\ICar.cs" />
     <Compile Include="Contracts\IDealer.cs" />
     <Compile Include="Contracts\IManufacturer.cs" />

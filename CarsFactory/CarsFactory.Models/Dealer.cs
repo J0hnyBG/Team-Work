@@ -20,6 +20,7 @@ namespace Cars.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
+        public int Town { get; set; }
 
         public virtual ICollection<ICar> Cars
         {

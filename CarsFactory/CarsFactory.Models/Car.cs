@@ -2,6 +2,8 @@
 
 using Cars.Models.Enums;
 using Cars.Models.Contracts;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cars.Models
 {
@@ -9,16 +11,10 @@ namespace Cars.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Model { get; set; }
+        public DateTime Year { get; set; }
 
         [Required]
-        public ushort Year { get; set; }
-
-        public FuelType Fuel { get; set; }
-
-        [Required]
+        [Column(TypeName="Money")]
         public decimal Price { get; set; }
 
         public int DealerId { get; set; }
@@ -29,6 +25,16 @@ namespace Cars.Models
 
         public virtual IManufacturer Manufacturer { get; set; }
 
-        public virtual IPlatform CarPlatform { get; set; }
+        public int ModelId { get; set; }
+
+        public virtual IModel Model { get; set; }
+
+        public int EngineId { get; set; }
+
+        public virtual IEngine Engine { get; set; }
+
+        public int PlatformId { get; set; }
+
+        public virtual IPlatform Platform { get; set; }
     }
 }

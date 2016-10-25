@@ -49,7 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DealershipDbContext.cs" />
+    <Compile Include="CarsFactoryDbContext.cs" />
+    <Compile Include="Migrations\201610252048197_Initial.cs" />
+    <Compile Include="Migrations\201610252048197_Initial.Designer.cs">
+      <DependentUpon>201610252048197_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610252132414_Current.cs" />
+    <Compile Include="Migrations\201610252132414_Current.Designer.cs">
+      <DependentUpon>201610252132414_Current.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MSSqlRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +71,14 @@
       <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
       <Name>CarsFactory.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610252048197_Initial.resx">
+      <DependentUpon>201610252048197_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252132414_Current.resx">
+      <DependentUpon>201610252132414_Current.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

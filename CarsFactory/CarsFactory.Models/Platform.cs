@@ -3,12 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cars.Models
 {
-    public class CarPlatform : IPlatform
+    public class Platform : IPlatform
     {
         public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public int NumberOfDoors { get; set; }
     }
 }

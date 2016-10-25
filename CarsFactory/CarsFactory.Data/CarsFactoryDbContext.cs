@@ -1,11 +1,6 @@
 ﻿using Cars.Models;
-using Cars.Models.Contracts;
-using System;
-using System.Collections.Generic;
+using Dealership.Data.Migrations;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dealership.Data
 {
@@ -14,7 +9,8 @@ namespace Dealership.Data
         public CarsFactoryDbContext()
             : base("CarsFactory")
         {
-
+           var migrationStrategy = new MigrateDatabaseToLatestVersion<CarsFactoryDbContext, Configuration>();
+           Database.SetInitializer(migrationStrategy);
         }
 
         public virtual IDbSet<Car> Cars { get; set; }
@@ -22,5 +18,11 @@ namespace Dealership.Data
         public virtual IDbSet<Dealer> Dealers { get; set; }
 
         public virtual IDbSet<Manufacturer> Manufacturers { get; set; }
+
+        public virtual IDbSet<Model> Models { get; set; }
+
+        public virtual IDbSet<Platform> Platforms { get; set; }
+
+        public virtual IDbSet<Engine> Engines { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cars.Models.Enums;
+using System;
 
 namespace Cars.Models.Contracts
 {
@@ -6,11 +7,7 @@ namespace Cars.Models.Contracts
     {
         int Id { get; set; }
 
-        string Model { get; }
-
-        ushort Year { get; }
-
-        FuelType Fuel { get; }
+        DateTime Year { get; }
 
         decimal Price { get; }
 
@@ -22,6 +19,16 @@ namespace Cars.Models.Contracts
 
         IManufacturer Manufacturer { get; }
 
-        IPlatform CarPlatform { get; }
+        int ModelId { get; set; }
+
+        IModel Model { get; set; }
+
+        int EngineId { get; set; }
+
+        IEngine Engine { get; set; }
+
+        int PlatformId { get; set; }
+
+        IPlatform Platform { get; set; }
     }
 }
