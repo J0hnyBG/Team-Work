@@ -1,9 +1,8 @@
-﻿using CarsFactory.Models.Contracts;
-using CarsFactory.Models.Enums;
+﻿using CarsFactory.Models.Enums;
 
 namespace CarsFactory.Models
 {
-    public class Engine : IEngine
+    public class Engine
     {
         public int Id { get; set; }
 

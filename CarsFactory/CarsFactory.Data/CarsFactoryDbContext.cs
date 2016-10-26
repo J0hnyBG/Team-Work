@@ -25,5 +25,9 @@ namespace CarsFactory.Data
         public virtual IDbSet<Platform> Platforms { get; set; }
 
         public virtual IDbSet<Engine> Engines { get; set; }
+
+        public virtual IDbSet<Order> Orders { get; set; }
+
+        public virtual IDbSet<Town> Towns { get; set; }
     }
 }

@@ -2,11 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using CarsFactory.Models.Contracts;
-
 namespace CarsFactory.Models
 {
-    public class Car : ICar
+    public class Car
     {
         private decimal price;
 
@@ -14,25 +12,17 @@ namespace CarsFactory.Models
 
         public int ModelId { get; set; }
 
-        public virtual IModel Model { get; set; }
+        public virtual Model Model { get; set; }
 
         public int DealerId { get; set; }
 
-        public virtual IDealer Dealer { get; set; }
-
-        public int ManufacturerId { get; set; }
-
-        public virtual IManufacturer Manufacturer { get; set; }
+        public virtual Dealer Dealer { get; set; }
 
         public DateTime Year { get; set; }
 
-        public int EngineId { get; set; }
+        public Nullable<int> OrderId { get; set; }
 
-        public virtual IEngine Engine { get; set; }
-
-        public int PlatformId { get; set; }
-
-        public virtual IPlatform Platform { get; set; }
+        public Order Order { get; set; }
 
         [Required]
         [Column(TypeName = "Money")]

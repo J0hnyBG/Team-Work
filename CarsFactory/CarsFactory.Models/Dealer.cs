@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 
-using CarsFactory.Models.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarsFactory.Models
 {
-    public class Dealer : IDealer
+    public class Dealer
     {
-        private ICollection<ICar> cars;
+        private ICollection<Car> cars;
 
         public Dealer()
         {
-            this.cars = new HashSet<ICar>();
+            this.cars = new HashSet<Car>();
         }
 
         public int Id { get; set; }
@@ -20,9 +19,11 @@ namespace CarsFactory.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public int Town { get; set; }
+        public int TownId { get; set; }
 
-        public virtual ICollection<ICar> Cars
+        public Town Town { get; set; }
+
+        public virtual ICollection<Car> Cars
         {
             get
             {
