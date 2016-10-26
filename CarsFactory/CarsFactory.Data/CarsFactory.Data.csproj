@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201610252132414_Current.Designer.cs">
       <DependentUpon>201610252132414_Current.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610260941164_PlatformType.cs" />
+    <Compile Include="Migrations\201610260941164_PlatformType.Designer.cs">
+      <DependentUpon>201610260941164_PlatformType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MSSqlRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610252132414_Current.resx">
       <DependentUpon>201610252132414_Current.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610260941164_PlatformType.resx">
+      <DependentUpon>201610260941164_PlatformType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

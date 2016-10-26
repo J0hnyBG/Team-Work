@@ -1,4 +1,5 @@
 ﻿using Cars.Models.Contracts;
+using Cars.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cars.Models
@@ -8,8 +9,7 @@ namespace Cars.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
+        public PlatformType PlatformType { get; set; }
 
         public int NumberOfDoors { get; set; }
     }

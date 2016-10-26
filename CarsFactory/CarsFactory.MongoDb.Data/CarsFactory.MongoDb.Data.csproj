@@ -56,6 +56,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarsFactory.Client\CarsFactory.Client.csproj">
+      <Project>{228fee02-714a-43a2-b6b0-1075c305bb2c}</Project>
+      <Name>CarsFactory.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarsFactory.Data\CarsFactory.Data.csproj">
+      <Project>{c0f00ae7-7e71-4eca-a1ed-0861137b16ca}</Project>
+      <Name>CarsFactory.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CarsFactory.Models\CarsFactory.Models.csproj">
       <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
       <Name>CarsFactory.Models</Name>

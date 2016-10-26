@@ -11,11 +11,9 @@ namespace Cars.Models
     {
         public int Id { get; set; }
 
-        public DateTime Year { get; set; }
+        public int ModelId { get; set; }
 
-        [Required]
-        [Column(TypeName="Money")]
-        public decimal Price { get; set; }
+        public virtual IModel Model { get; set; }
 
         public int DealerId { get; set; }
 
@@ -25,9 +23,7 @@ namespace Cars.Models
 
         public virtual IManufacturer Manufacturer { get; set; }
 
-        public int ModelId { get; set; }
-
-        public virtual IModel Model { get; set; }
+        public DateTime Year { get; set; }
 
         public int EngineId { get; set; }
 
@@ -36,5 +32,9 @@ namespace Cars.Models
         public int PlatformId { get; set; }
 
         public virtual IPlatform Platform { get; set; }
+
+        [Required]
+        [Column(TypeName = "Money")]
+        public decimal Price { get; set; }
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Contracts\IModel.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Enums\PlatformType.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Contracts\ICar.cs" />
