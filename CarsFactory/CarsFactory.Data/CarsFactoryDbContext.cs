@@ -1,6 +1,7 @@
-﻿using CarsFactory.Data.Migrations;
+﻿using System.Data.Entity;
+
+using CarsFactory.Data.Migrations;
 using CarsFactory.Models;
-using System.Data.Entity;
 
 namespace CarsFactory.Data
 {

@@ -1,6 +1,7 @@
-﻿using CarsFactory.Models.Contracts;
+﻿using System.ComponentModel.DataAnnotations;
+
+using CarsFactory.Models.Contracts;
 using CarsFactory.Models.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace CarsFactory.Models
 {

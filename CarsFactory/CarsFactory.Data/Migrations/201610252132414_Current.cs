@@ -7,20 +7,20 @@ namespace Dealership.Data.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Cars", "ModelId", c => c.Int(nullable: false));
-            AddColumn("dbo.Cars", "EngineId", c => c.Int(nullable: false));
-            AddColumn("dbo.Cars", "PlatformId", c => c.Int(nullable: false));
-            DropColumn("dbo.Cars", "Model");
-            DropColumn("dbo.Cars", "Fuel");
+            this.AddColumn("dbo.Cars", "ModelId", c => c.Int(nullable: false));
+            this.AddColumn("dbo.Cars", "EngineId", c => c.Int(nullable: false));
+            this.AddColumn("dbo.Cars", "PlatformId", c => c.Int(nullable: false));
+            this.DropColumn("dbo.Cars", "Model");
+            this.DropColumn("dbo.Cars", "Fuel");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Cars", "Fuel", c => c.Int(nullable: false));
-            AddColumn("dbo.Cars", "Model", c => c.String(nullable: false, maxLength: 50));
-            DropColumn("dbo.Cars", "PlatformId");
-            DropColumn("dbo.Cars", "EngineId");
-            DropColumn("dbo.Cars", "ModelId");
+            this.AddColumn("dbo.Cars", "Fuel", c => c.Int(nullable: false));
+            this.AddColumn("dbo.Cars", "Model", c => c.String(nullable: false, maxLength: 50));
+            this.DropColumn("dbo.Cars", "PlatformId");
+            this.DropColumn("dbo.Cars", "EngineId");
+            this.DropColumn("dbo.Cars", "ModelId");
         }
     }
 }

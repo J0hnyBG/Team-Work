@@ -1,9 +1,10 @@
-﻿using CarsFactory.MongoDb.Data;
-using CarsFactory.Data;
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
+
+using CarsFactory.Data;
 using CarsFactory.Models;
+using CarsFactory.MongoDb.Data;
 
 namespace Cars.Client
 {
@@ -38,6 +39,7 @@ namespace Cars.Client
                             ctx.Cars.Add(car);
                         }
                     }
+
                     ctx.SaveChanges();
                 }
             }

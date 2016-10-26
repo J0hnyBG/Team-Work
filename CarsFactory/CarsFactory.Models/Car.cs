@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using CarsFactory.Models.Enums;
-using CarsFactory.Models.Contracts;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using CarsFactory.Models.Contracts;
 
 namespace CarsFactory.Models
 {
     public class Car : ICar
     {
+        private decimal price;
+
         public int Id { get; set; }
 
         public int ModelId { get; set; }
@@ -35,6 +36,22 @@ namespace CarsFactory.Models
 
         [Required]
         [Column(TypeName = "Money")]
-        public decimal Price { get; set; }
+        public decimal Price
+        {
+            get
+            {
+                return this.price;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Price cannot be negative");
+                }
+
+                this.price = value;
+            }
+        }
     }
 }

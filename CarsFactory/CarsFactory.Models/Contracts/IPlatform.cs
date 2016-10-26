@@ -8,7 +8,7 @@ namespace CarsFactory.Models.Contracts
         int Id { get; }
 
         [Required]
-        PlatformType PlatformType{ get; }
+        PlatformType PlatformType { get; }
 
         int NumberOfDoors { get; }
     }

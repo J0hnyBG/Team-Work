@@ -68,18 +68,17 @@ namespace Dealership.Data.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         NumberOfDoors = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
-            
+                .PrimaryKey(t => t.Id);        
         }
         
         public override void Down()
         {
-            DropTable("dbo.Platforms");
-            DropTable("dbo.Models");
-            DropTable("dbo.Manufacturers");
-            DropTable("dbo.Engines");
-            DropTable("dbo.Dealers");
-            DropTable("dbo.Cars");
+            this.DropTable("dbo.Platforms");
+            this.DropTable("dbo.Models");
+            this.DropTable("dbo.Manufacturers");
+            this.DropTable("dbo.Engines");
+            this.DropTable("dbo.Dealers");
+            this.DropTable("dbo.Cars");
         }
     }
 }
