@@ -1,4 +1,4 @@
-﻿namespace Cars.Models.Enums
+﻿namespace CarsFactory.Models.Enums
 {
     public enum PlatformType
     {

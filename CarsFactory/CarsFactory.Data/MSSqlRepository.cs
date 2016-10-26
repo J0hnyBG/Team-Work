@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Dealership.Data
+namespace CarsFactory.Data
 {
     /// <summary>
     /// Microsoft's SQL repository

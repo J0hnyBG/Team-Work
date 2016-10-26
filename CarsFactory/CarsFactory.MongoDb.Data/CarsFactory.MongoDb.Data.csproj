@@ -56,10 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarsFactory.Client\CarsFactory.Client.csproj">
-      <Project>{228fee02-714a-43a2-b6b0-1075c305bb2c}</Project>
-      <Name>CarsFactory.Client</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CarsFactory.Data\CarsFactory.Data.csproj">
       <Project>{c0f00ae7-7e71-4eca-a1ed-0861137b16ca}</Project>
       <Name>CarsFactory.Data</Name>
@@ -68,9 +67,6 @@
       <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
       <Name>CarsFactory.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

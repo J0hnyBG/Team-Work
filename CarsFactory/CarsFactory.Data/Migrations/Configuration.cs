@@ -1,4 +1,4 @@
-namespace Dealership.Data.Migrations
+namespace CarsFactory.Data.Migrations
 {
     using System;
     using System.Data.Entity;

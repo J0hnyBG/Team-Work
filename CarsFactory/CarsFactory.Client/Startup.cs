@@ -1,7 +1,9 @@
-﻿using Dealership.Data;
+﻿using CarsFactory.MongoDb.Data;
+using CarsFactory.Data;
 using System;
 using System.Data;
 using System.Linq;
+using CarsFactory.Models;
 
 namespace Cars.Client
 {
@@ -17,32 +19,32 @@ namespace Cars.Client
             //Startup.GetMongoData();
         }
 
-        // Commented so i can start the program.
-        //private async static void GetMongoData()
-        //{
-        //    try
-        //    {
-        //        var repo = new MongoDbRepository();
+        //Commented so i can start the program.
+        private async static void GetMongoData()
+        {
+            try
+            {
+                var repo = new MongoDbRepository();
 
-        //        var cars = (await repo.GetCarsData()).ToList();
+                var cars = (await repo.GetCarsData()).ToList();
 
-        //        var ctx = new CarsFactoryDbContext();
-        //        using (ctx)
-        //        {
-        //            foreach (var car in cars)
-        //            {
-        //                if (!ctx.Cars.Any(pl => pl.Id == car.Id))
-        //                {
-        //                    ctx.Cars.Add(car);
-        //                }
-        //            }
-        //            ctx.SaveChanges();
-        //        }
-        //    }
-        //    catch (DataException)
-        //    {
-        //        throw new ArgumentException("MongoDb is not set up correctly.");
-        //    }
-        //}
+                var ctx = new CarsFactoryDbContext();
+                using (ctx)
+                {
+                    foreach (Car car in cars)
+                    {
+                        if (!ctx.Cars.Any(pl => pl.Id == car.Id))
+                        {
+                            ctx.Cars.Add(car);
+                        }
+                    }
+                    ctx.SaveChanges();
+                }
+            }
+            catch (DataException)
+            {
+                throw new ArgumentException("MongoDb is not set up correctly.");
+            }
+        }
     }
 }

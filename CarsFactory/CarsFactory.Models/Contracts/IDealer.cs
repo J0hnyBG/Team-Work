@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cars.Models.Contracts
+namespace CarsFactory.Models.Contracts
 {
     public interface IDealer
     {

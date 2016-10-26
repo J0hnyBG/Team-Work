@@ -1,7 +1,7 @@
-﻿using Cars.Models.Contracts;
-using Cars.Models.Enums;
+﻿using CarsFactory.Models.Contracts;
+using CarsFactory.Models.Enums;
 
-namespace Cars.Models
+namespace CarsFactory.Models
 {
     public class Engine : IEngine
     {

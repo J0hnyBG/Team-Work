@@ -1,7 +1,7 @@
-﻿using Cars.Models.Contracts;
+﻿using CarsFactory.Models.Contracts;
 using System;
 
-namespace Cars.Models
+namespace CarsFactory.Models
 {
     public class Model : IModel
     {

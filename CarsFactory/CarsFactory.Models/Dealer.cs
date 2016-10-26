@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-using Cars.Models.Contracts;
+using CarsFactory.Models.Contracts;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cars.Models
+namespace CarsFactory.Models
 {
     public class Dealer : IDealer
     {

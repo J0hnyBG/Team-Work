@@ -1,7 +1,7 @@
-﻿using Cars.Models.Enums;
+﻿using CarsFactory.Models.Enums;
 using System;
 
-namespace Cars.Models.Contracts
+namespace CarsFactory.Models.Contracts
 {
     public interface ICar
     {

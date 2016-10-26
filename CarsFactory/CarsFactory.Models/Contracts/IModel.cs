@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cars.Models.Contracts
+namespace CarsFactory.Models.Contracts
 {
     public interface IModel
     {

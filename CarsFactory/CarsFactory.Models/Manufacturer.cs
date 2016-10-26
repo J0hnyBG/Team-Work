@@ -1,7 +1,7 @@
-﻿using Cars.Models.Contracts;
+﻿using CarsFactory.Models.Contracts;
 using System.Collections.Generic;
 
-namespace Cars.Models
+namespace CarsFactory.Models
 {
     public class Manufacturer : IManufacturer
     {

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using Cars.Models.Enums;
-using Cars.Models.Contracts;
+using CarsFactory.Models.Enums;
+using CarsFactory.Models.Contracts;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cars.Models
+namespace CarsFactory.Models
 {
     public class Car : ICar
     {

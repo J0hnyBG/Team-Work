@@ -7,8 +7,8 @@
     <ProjectGuid>{B5E2B4AB-D64F-49F8-BAFC-9FA9B7B76547}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cars.Models</RootNamespace>
-    <AssemblyName>Cars.Models</AssemblyName>
+    <RootNamespace>CarsFactory.Models</RootNamespace>
+    <AssemblyName>CarsFactory.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

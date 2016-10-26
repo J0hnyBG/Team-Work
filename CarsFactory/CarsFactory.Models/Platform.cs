@@ -1,8 +1,8 @@
-﻿using Cars.Models.Contracts;
-using Cars.Models.Enums;
+﻿using CarsFactory.Models.Contracts;
+using CarsFactory.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cars.Models
+namespace CarsFactory.Models
 {
     public class Platform : IPlatform
     {

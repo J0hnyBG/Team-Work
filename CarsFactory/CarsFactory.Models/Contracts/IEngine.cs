@@ -1,6 +1,6 @@
-﻿using Cars.Models.Enums;
+﻿using CarsFactory.Models.Enums;
 
-namespace Cars.Models.Contracts
+namespace CarsFactory.Models.Contracts
 {
    public interface IEngine
     {

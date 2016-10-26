@@ -1,8 +1,8 @@
-﻿using Cars.Models;
-using Dealership.Data.Migrations;
+﻿using CarsFactory.Data.Migrations;
+using CarsFactory.Models;
 using System.Data.Entity;
 
-namespace Dealership.Data
+namespace CarsFactory.Data
 {
     public class CarsFactoryDbContext : DbContext
     {

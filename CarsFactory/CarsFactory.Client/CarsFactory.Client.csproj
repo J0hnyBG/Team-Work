@@ -7,8 +7,8 @@
     <ProjectGuid>{228FEE02-714A-43A2-B6B0-1075C305BB2C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cars.Client</RootNamespace>
-    <AssemblyName>Cars.Client</AssemblyName>
+    <RootNamespace>CarsFactory.Client</RootNamespace>
+    <AssemblyName>CarsFactory.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,13 +60,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarsFactory.Models\CarsFactory.Models.csproj">
-      <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
-      <Name>CarsFactory.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CarsFactory.Data\CarsFactory.Data.csproj">
       <Project>{c0f00ae7-7e71-4eca-a1ed-0861137b16ca}</Project>
       <Name>CarsFactory.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarsFactory.Models\CarsFactory.Models.csproj">
+      <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
+      <Name>CarsFactory.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\CarsFactory.MongoDb.Data\CarsFactory.MongoDb.Data.csproj">
       <Project>{756db345-ed04-419b-9575-4688c2c383da}</Project>
