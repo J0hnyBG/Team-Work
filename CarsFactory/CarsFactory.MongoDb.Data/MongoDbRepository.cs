@@ -11,9 +11,9 @@ namespace CarsFactory.MongoDb.Data
 {
     public class MongoDbRepository
     {
-        private const string ConnectionString = "mongodb://mongouser:mongo1234@ds033607.mlab.com:33607/carsfactory";
+        private const string ConnectionString = "mongodb://pesho:gosho@ds033297.mlab.com:33297/factory";
         private static readonly MongoClient Client = new MongoClient(ConnectionString);
-        private static readonly IMongoDatabase Database = Client.GetDatabase("carsfactory");
+        private static readonly IMongoDatabase Database = Client.GetDatabase("factory");
 
         private static readonly IMongoCollection<BsonDocument> CarsCollection = MbDatabase.GetCollection<BsonDocument>("Cars");
 

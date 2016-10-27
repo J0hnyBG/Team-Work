@@ -9,7 +9,7 @@
     using CarsFactory.MongoDb.Data;
 
     using Reports.Generators;
-
+    using System.Threading.Tasks;
     public class Startup
     {
         public static void Main()
@@ -38,35 +38,32 @@
                 pdfGenerator.GenerateReports("..\\..\\..\\sales-reports.pdf");
             }
 
-            //Startup.GetMongoData();
+            Task.Run(async () =>
+            {
+                await GetMongoData();
+            }).Wait();
         }
 
-        //Commented so i can start the program.
-        private async static void GetMongoData()
+        private static async Task GetMongoData()
         {
-            try
+            var repo = new MongoDbRepository();
+
+            var cars = (await repo.GetCarsData()).ToList();
+
+            var ctx = new CarsFactoryDbContext();
+            Console.WriteLine(cars.Count);
+            using (ctx)
             {
-                var repo = new MongoDbRepository();
-
-                var cars = (await repo.GetCarsData()).ToList();
-
-                var ctx = new CarsFactoryDbContext();
-                using (ctx)
+                foreach (Car car in cars)
                 {
-                    foreach (Car car in cars)
+                    if (!ctx.Cars.Any(c => c.Id == car.Id))
                     {
-                        if (!ctx.Cars.Any(pl => pl.Id == car.Id))
-                        {
-                            ctx.Cars.Add(car);
-                        }
+                        ctx.Cars.Add(car);
                     }
-
-                    ctx.SaveChanges();
                 }
-            }
-            catch (DataException)
-            {
-                throw new ArgumentException("MongoDb is not set up correctly.");
+
+                // TO FIX: Method returns error for foreign key.
+                ctx.SaveChanges();
             }
         }
     }
