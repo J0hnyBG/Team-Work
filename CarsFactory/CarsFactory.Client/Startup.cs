@@ -34,8 +34,8 @@
                 //    }
                 //    Console.WriteLine("=======================================");
                 //}
-                var pdfGenerator = new PdfGenerator();
-                pdfGenerator.GenerateReport();
+                var pdfGenerator = new PdfReportsGenerator();
+                pdfGenerator.GenerateReports("..\\..\\..\\sales-reports.pdf");
             }
 
             //Startup.GetMongoData();

@@ -57,12 +57,24 @@
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="Generators\Abstract\AbstractGenerator.cs" />
     <Compile Include="Generators\Documents\Abstract\AbstractDocument.cs" />
-    <Compile Include="Generators\PdfGenerator.cs" />
+    <Compile Include="Generators\Documents\Contracts\IDocument.cs" />
+    <Compile Include="Generators\Documents\PdfDocument.cs" />
+    <Compile Include="Generators\PdfReportsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CarsFactory.Data\CarsFactory.Data.csproj">
+      <Project>{c0f00ae7-7e71-4eca-a1ed-0861137b16ca}</Project>
+      <Name>CarsFactory.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarsFactory.Models\CarsFactory.Models.csproj">
+      <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
+      <Name>CarsFactory.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
