@@ -72,6 +72,10 @@
       <Project>{756db345-ed04-419b-9575-4688c2c383da}</Project>
       <Name>CarsFactory.MongoDb.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CarsFactory.Reports\CarsFactory.Reports.csproj">
+      <Project>{1736a8cf-5a60-4f35-a66a-8161261a3409}</Project>
+      <Name>CarsFactory.Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

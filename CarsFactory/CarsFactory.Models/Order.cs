@@ -2,7 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
+    using Enums;
 
     public class Order
     {
@@ -18,10 +23,19 @@
         [Required]
         public DateTime Date { get; set; }
 
+        [DefaultValue(1)]
+        public OrderStatus OrderStatus { get; set; }
+
         public virtual ICollection<Car> Cars
         {
             get { return this.cars; }
             set { this.cars = value; }
+        }
+
+        [NotMapped]
+        public decimal TotalPrice
+        {
+            get { return this.Cars.ToList().Sum(x => x.Price); }
         }
     }
 }

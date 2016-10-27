@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using CarsFactory.Models.Enums;
+﻿using CarsFactory.Models.Enums;
 
 namespace CarsFactory.Models
 {
