@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsFactory.Models", "CarsFactory.Models\CarsFactory.Models.csproj", "{B5E2B4AB-D64F-49F8-BAFC-9FA9B7B76547}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsFactory.MongoDb.Data", "CarsFactory.MongoDb.Data\CarsFactory.MongoDb.Data.csproj", "{756DB345-ED04-419B-9575-4688C2C383DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsFactory.Reports", "CarsFactory.Reports\CarsFactory.Reports.csproj", "{1736A8CF-5A60-4F35-A66A-8161261A3409}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsFactory.Utilities", "CarsFactory.Utilities\CarsFactory.Utilities.csproj", "{BBC5AB48-8C97-4AD6-BCC3-BE99FDA0C5CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1736A8CF-5A60-4F35-A66A-8161261A3409}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1736A8CF-5A60-4F35-A66A-8161261A3409}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1736A8CF-5A60-4F35-A66A-8161261A3409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC5AB48-8C97-4AD6-BCC3-BE99FDA0C5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC5AB48-8C97-4AD6-BCC3-BE99FDA0C5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC5AB48-8C97-4AD6-BCC3-BE99FDA0C5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC5AB48-8C97-4AD6-BCC3-BE99FDA0C5CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
