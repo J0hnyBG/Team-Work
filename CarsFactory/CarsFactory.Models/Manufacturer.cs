@@ -1,32 +1,23 @@
-﻿using CarsFactory.Models.Contracts;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CarsFactory.Models
 {
-    public class Manufacturer : IManufacturer
+    using System.ComponentModel.DataAnnotations;
+
+    public class Manufacturer
     {
-        private ICollection<ICar> cars;
+        private ICollection<Model> models;
 
         public Manufacturer()
         {
-            this.cars = new HashSet<ICar>();
+            this.models = new HashSet<Model>();
         }
 
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<ICar> Cars
-        {
-            get
-            {
-                return this.cars;
-            }
-
-            set
-            {
-                this.cars = value;
-            }
-        }
+        public virtual ICollection<Model> Models { get; set; }
     }
 }
