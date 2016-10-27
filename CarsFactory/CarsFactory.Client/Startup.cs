@@ -10,6 +10,9 @@
 
     using Reports.Generators;
     using System.Threading.Tasks;
+    using System.IO;
+    using System.IO.Compression;
+
     public class Startup
     {
         public static void Main()
@@ -139,6 +142,11 @@
 
                 ctx.SaveChanges();
             }
+        }
+
+        private static void GetDataFromZip()
+        {
+           // TODO:  
         }
     }
 }
