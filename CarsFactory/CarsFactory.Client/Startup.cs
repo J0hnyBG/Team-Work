@@ -1,17 +1,14 @@
 ﻿namespace CarsFactory.Client
 {
     using System;
-    using System.Data;
     using System.Linq;
 
     using CarsFactory.Data;
-    using CarsFactory.Models;
     using CarsFactory.MongoDb.Data;
 
-    using Reports.Generators;
     using System.Threading.Tasks;
-    using System.IO;
-    using System.IO.Compression;
+
+    using Reports;
 
     public class Startup
     {
@@ -20,25 +17,9 @@
             using (var dbContext = new CarsFactoryDbContext())
             {
                 dbContext.Database.CreateIfNotExists();
-                //var orders = dbContext.Orders.ToList();
-                //foreach (var order in orders)
-                //{
-                //    Console.WriteLine($"Order Id: {order.Id}");
-                //    Console.WriteLine($"{order.Date}, Status: {order.OrderStatus}");
-                //    if (order.Cars.Count > 0)
-                //    {
-                //        var cars = order.Cars.ToList();
-                //        var total = order.TotalPrice;
-                //        Console.WriteLine("Total sum: " + total.ToString());
-                //        foreach (var car in cars)
-                //        {
-                //            Console.WriteLine(car.Model.Name);
-                //        }
-                //    }
-                //    Console.WriteLine("=======================================");
-                //}
-                var pdfGenerator = new PdfReportsGenerator();
-                pdfGenerator.GenerateReports("..\\..\\..\\");
+
+                var reportService = new ReportService();
+                reportService.SaveAllReports("..\\..\\..\\Output");
             }
 
             //Task.Run(async () =>
@@ -51,7 +32,6 @@
         private static async Task GetMongoData()
         {
             var repo = new MongoDbRepository();
-
 
             var towns = (await repo.GetTownsData()).ToList();
             var platforms = (await repo.GetPlatformsData()).ToList();

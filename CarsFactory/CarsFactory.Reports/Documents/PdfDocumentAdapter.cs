@@ -1,4 +1,4 @@
-﻿namespace CarsFactory.Reports.Generators.Documents
+namespace CarsFactory.Reports.Documents
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@
     using iTextSharp.text.pdf;
     using iTextSharp.text.pdf.draw;
 
-    public class PdfDocument : AbstractDocument
+    public class PdfDocumentAdapter : AbstractDocumentAdapter
     {
         private const float DefaultCellPadding = 10f;
         private const float DefaultGrayFill= 0.9f;
@@ -21,11 +21,11 @@
 
         private readonly Document document;
 
-        public PdfDocument(string fileLocation)
+        public PdfDocumentAdapter(string fileLocation)
             : base(fileLocation)
         {
             //TODO: Abstract dependencies
-            var fs = new FileStream(fileLocation, FileMode.Create, FileAccess.Write, FileShare.None);
+            var fs = new FileStream(fileLocation + ".pdf", FileMode.Create, FileAccess.Write, FileShare.None);
             this.document = new Document();
 
             var wr = PdfWriter.GetInstance(this.document, fs);
@@ -36,7 +36,7 @@
             this.document.Close();
         }
 
-        public override IDocument AddRow(string text)
+        public override IDocumentAdapter AddRow(string text)
         {
             this.document.Add(new Paragraph(text));
             this.document.Add(Chunk.NEWLINE);
@@ -46,7 +46,7 @@
             return this;
         }
 
-        public override IDocument AddTabularData<TModel>(ICollection<TModel> tableData)
+        public override IDocumentAdapter AddTabularData<TModel>(ICollection<TModel> tableData)
         {
             if (tableData == null)
             {
@@ -89,16 +89,16 @@
             return this;
         }
 
-        public override IDocument NewPage()
+        public override IDocumentAdapter NewPage()
         {
             this.document.NewPage();
             return this;
         }
 
-        public override IDocument AddMetadata()
+        public override IDocumentAdapter AddMetadata()
         {
             this.document.AddTitle("Reports");
-            this.document.AddSubject($"A sales report for {DateTime.Now}");
+            this.document.AddSubject($"Report for {DateTime.Now}");
             this.document.AddKeywords("Report, Sales");
             this.document.AddCreator(AppDomain.CurrentDomain.FriendlyName);
             this.document.AddAuthor(AppDomain.CurrentDomain.FriendlyName);
