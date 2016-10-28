@@ -60,6 +60,7 @@
     <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Manufacturer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TotalRevenueByDealer.cs" />
     <Compile Include="Town.cs" />
   </ItemGroup>
   <ItemGroup>

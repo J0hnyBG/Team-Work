@@ -4,7 +4,11 @@
 
     public abstract class AbstractGenerator
     {
-        public abstract void GenerateReports(string fileLocation);
+        protected AbstractGenerator()
+        {
+        }
+
+        public abstract void GenerateReports(string directoryLocation);
 
         protected abstract IDocument GetDocument(string fileLocation);
     }

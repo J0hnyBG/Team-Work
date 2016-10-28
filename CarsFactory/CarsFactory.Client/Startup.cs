@@ -38,13 +38,13 @@
                 //    Console.WriteLine("=======================================");
                 //}
                 var pdfGenerator = new PdfReportsGenerator();
-                pdfGenerator.GenerateReports("..\\..\\..\\sales-reports.pdf");
+                pdfGenerator.GenerateReports("..\\..\\..\\");
             }
 
-            Task.Run(async () =>
-            {
-                await GetMongoData();
-            }).Wait();
+            //Task.Run(async () =>
+            //{
+            //    await GetMongoData();
+            //}).Wait();
         }
 
         // TODO: Refactor method

@@ -14,11 +14,17 @@
 
     public class PdfDocument : AbstractDocument
     {
+        private const float DefaultCellPadding = 10f;
+        private const float DefaultGrayFill= 0.9f;
+        private const int DefaultColspan = 1;
+        private const int CentralAlignment = 1;
+
         private readonly Document document;
 
         public PdfDocument(string fileLocation)
             : base(fileLocation)
         {
+            //TODO: Abstract dependencies
             var fs = new FileStream(fileLocation, FileMode.Create, FileAccess.Write, FileShare.None);
             this.document = new Document();
 
@@ -42,6 +48,11 @@
 
         public override IDocument AddTabularData<TModel>(ICollection<TModel> tableData)
         {
+            if (tableData == null)
+            {
+                throw new ArgumentNullException(nameof(tableData));
+            }
+
             var modelProperties = typeof(TModel).GetProperties();
             var table = new PdfPTable(modelProperties.Length);
 
@@ -50,9 +61,9 @@
                 var propertyName = property.Name;
                 var cell = new PdfPCell(new Phrase(propertyName))
                 {
-                    Colspan = 1,
-                    HorizontalAlignment = 1, //0=Left, 1=Centre, 2=Right
-                    GrayFill = 0.9f
+                    Colspan = DefaultColspan,
+                    HorizontalAlignment = CentralAlignment,
+                    GrayFill = DefaultGrayFill
                 };
                 table.AddCell(cell);
             }
@@ -63,7 +74,13 @@
                 {
                     var value = property.GetValue(data);
                     var cellValue = (value ?? "N/A").ToString();
-                    table.AddCell(cellValue);
+
+                    var cell = new PdfPCell(new Phrase(cellValue))
+                               {
+                                   Padding = DefaultCellPadding,
+                                   HorizontalAlignment = CentralAlignment
+                               };
+                    table.AddCell(cell);
                 }
             }
            

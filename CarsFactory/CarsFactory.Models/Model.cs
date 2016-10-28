@@ -9,7 +9,7 @@ namespace CarsFactory.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public DateTime? Year { get; set; }
