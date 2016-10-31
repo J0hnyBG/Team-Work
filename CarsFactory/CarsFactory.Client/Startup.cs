@@ -4,6 +4,8 @@ using CarsFactory.Data;
 using CarsFactory.MongoDb.Data;
 using System.Threading.Tasks;
 using CarsFactory.Reports;
+using System.IO.Compression;
+using CarsFactory.Utilities;
 
 namespace CarsFactory.Client
 {
@@ -19,10 +21,11 @@ namespace CarsFactory.Client
                 reportService.SaveAllReports("..\\..\\..\\Output");
             }
 
-            //Task.Run(async () =>
-            //{
-            //    await GetMongoData();
-            //}).Wait();
+            GetDataFromZip();
+            Task.Run(async () =>
+            {
+                await GetMongoData();
+            }).Wait();
         }
 
         // TODO: Refactor method
@@ -31,24 +34,24 @@ namespace CarsFactory.Client
             var repo = new MongoDbRepository();
 
             var towns = (await repo.GetTownsData()).ToList();
-            var platforms = (await repo.GetPlatformsData()).ToList();
-            var orders = (await repo.GetOrdersData()).ToList();
-            var models = (await repo.GetModelsData()).ToList();
-            var manufacturers = (await repo.GetManufacturersData()).ToList();
-            var engines = (await repo.GetEnginesData()).ToList();
-            var dealers = (await repo.GetDealersData()).ToList();
-            var cars = (await repo.GetCarsData()).ToList();
+            //var platforms = (await repo.GetPlatformsData()).ToList();
+            //var orders = (await repo.GetOrdersData()).ToList();
+            //var models = (await repo.GetModelsData()).ToList();
+            //var manufacturers = (await repo.GetManufacturersData()).ToList();
+            //var engines = (await repo.GetEnginesData()).ToList();
+            //var dealers = (await repo.GetDealersData()).ToList();
+            //var cars = (await repo.GetCarsData()).ToList();
 
             var ctx = new CarsFactoryDbContext();
 
 
-            Console.WriteLine(cars.Count);
-            Console.WriteLine(models.Count);
-            Console.WriteLine(manufacturers.Count);
-            Console.WriteLine(orders.Count);
-            Console.WriteLine(platforms.Count);
-            Console.WriteLine(engines.Count);
-            Console.WriteLine(dealers.Count);
+            //Console.WriteLine(cars.Count);
+            //Console.WriteLine(models.Count);
+            //Console.WriteLine(manufacturers.Count);
+            //Console.WriteLine(orders.Count);
+            //Console.WriteLine(platforms.Count);
+            //Console.WriteLine(engines.Count);
+            //Console.WriteLine(dealers.Count);
             Console.WriteLine(towns.Count);
 
             using (ctx)
@@ -61,61 +64,61 @@ namespace CarsFactory.Client
                     }
                 }
 
-                foreach (var platform in platforms)
-                {
-                    if (!ctx.Platforms.Any(c => c.Id == platform.Id))
-                    {
-                        ctx.Platforms.Add(platform);
-                    }
-                }
+                //foreach (var platform in platforms)
+                //{
+                //    if (!ctx.Platforms.Any(c => c.Id == platform.Id))
+                //    {
+                //        ctx.Platforms.Add(platform);
+                //    }
+                //}
 
-                foreach (var order in orders)
-                {
-                    if (!ctx.Orders.Any(c => c.Id == order.Id))
-                    {
-                        ctx.Orders.Add(order);
-                    }
-                }
+                //foreach (var order in orders)
+                //{
+                //    if (!ctx.Orders.Any(c => c.Id == order.Id))
+                //    {
+                //        ctx.Orders.Add(order);
+                //    }
+                //}
 
-                foreach (var manufacturer in manufacturers)
-                {
-                    if (!ctx.Manufacturers.Any(c => c.Id == manufacturer.Id))
-                    {
-                        ctx.Manufacturers.Add(manufacturer);
-                    }
-                }
+                //foreach (var manufacturer in manufacturers)
+                //{
+                //    if (!ctx.Manufacturers.Any(c => c.Id == manufacturer.Id))
+                //    {
+                //        ctx.Manufacturers.Add(manufacturer);
+                //    }
+                //}
 
-                foreach (var engine in engines)
-                {
-                    if (!ctx.Engines.Any(c => c.Id == engine.Id))
-                    {
-                        ctx.Engines.Add(engine);
-                    }
-                }
+                //foreach (var engine in engines)
+                //{
+                //    if (!ctx.Engines.Any(c => c.Id == engine.Id))
+                //    {
+                //        ctx.Engines.Add(engine);
+                //    }
+                //}
 
-                foreach (var model in models)
-                {
-                    if (!ctx.Models.Any(c => c.Id == model.Id))
-                    {
-                        ctx.Models.Add(model);
-                    }
-                }
+                //foreach (var model in models)
+                //{
+                //    if (!ctx.Models.Any(c => c.Id == model.Id))
+                //    {
+                //        ctx.Models.Add(model);
+                //    }
+                //}
 
-                foreach (var dealer in dealers)
-                {
-                    if (!ctx.Dealers.Any(d => d.Id == dealer.Id))
-                    {
-                        ctx.Dealers.Add(dealer);
-                    }
-                }
+                //foreach (var dealer in dealers)
+                //{
+                //    if (!ctx.Dealers.Any(d => d.Id == dealer.Id))
+                //    {
+                //        ctx.Dealers.Add(dealer);
+                //    }
+                //}
 
-                foreach (var car in cars)
-                {
-                    if (!ctx.Cars.Any(c => c.Id == car.Id))
-                    {
-                        ctx.Cars.Add(car);
-                    }
-                }
+                //foreach (var car in cars)
+                //{
+                //    if (!ctx.Cars.Any(c => c.Id == car.Id))
+                //    {
+                //        ctx.Cars.Add(car);
+                //    }
+                //}
 
                 ctx.SaveChanges();
             }
@@ -123,7 +126,14 @@ namespace CarsFactory.Client
 
         private static void GetDataFromZip()
         {
-           // TODO:  
+            var repo = new MSSqlRepository();
+            var filePath = @"..\..\..\..\SampleData.zip";
+            var zip = ZipFile.Open(filePath, ZipArchiveMode.Read);
+            using (zip)
+            {
+                var cars = ExcelFromZip.GetAllTowns(zip);
+                repo.ExtractTownsFromZip(cars);
+            }
         }
     }
 }

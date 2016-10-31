@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using CarsFactory.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarsFactory.Data
@@ -19,24 +23,30 @@ namespace CarsFactory.Data
 
         // TODO: Create DtoObjects
 
-        //public ICollection<DtoCarReport> GetCarReport()
-        //{
-        //    var ctx = new CarsFactoryDbContext();
+        public void ExtractTownsFromZip(List<Town> towns)
+        {
+            try
+            {
+                var ctx = new CarsFactoryDbContext();
 
-        //    using (ctx)
-        //    {
-        //        var carReports = ctx.Cars.Select(t => new DtoCarReport
-        //        {
-        //            Id = t.Id,
-        //            Name = t.Name,
-        //            Owner = t.Owner.FirstName + " " + t.Owner.LastName,
-        //            Coach = t.Coach.FirstName + " " + t.Coach.LastName,
-        //            NumberOfPlayers = t.Players.Count,
-        //            NumbersOfMatches = t.Matches.Count
-        //        }).ToList();
+                using (ctx)
+                {
+                    foreach (var town in towns)
+                    {
+                        if (!ctx.Towns.Any(t => t.Name == town.Name))
+                        {
+                            ctx.Towns.Add(town);
+                        }
+                    }
 
-        //        return carReports;
-        //    }
-        //}
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

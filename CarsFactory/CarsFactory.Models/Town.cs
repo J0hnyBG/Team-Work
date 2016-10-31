@@ -15,7 +15,7 @@ namespace CarsFactory.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(20)]
         public string Name { get; set; }
 
         public virtual ICollection<Dealer> Dealers
