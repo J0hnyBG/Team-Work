@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using CarsFactory.Reports;
 using System.IO.Compression;
 using CarsFactory.Utilities;
+using System.Collections.Generic;
+using CarsFactory.Models;
 
 namespace CarsFactory.Client
 {
@@ -34,11 +36,11 @@ namespace CarsFactory.Client
             var repo = new MongoDbRepository();
 
             var towns = (await repo.GetTownsData()).ToList();
-            //var platforms = (await repo.GetPlatformsData()).ToList();
+            var platforms = (await repo.GetPlatformsData()).ToList();
             //var orders = (await repo.GetOrdersData()).ToList();
             //var models = (await repo.GetModelsData()).ToList();
             //var manufacturers = (await repo.GetManufacturersData()).ToList();
-            //var engines = (await repo.GetEnginesData()).ToList();
+            var engines = (await repo.GetEnginesData()).ToList();
             //var dealers = (await repo.GetDealersData()).ToList();
             //var cars = (await repo.GetCarsData()).ToList();
 
@@ -64,13 +66,13 @@ namespace CarsFactory.Client
                     }
                 }
 
-                //foreach (var platform in platforms)
-                //{
-                //    if (!ctx.Platforms.Any(c => c.Id == platform.Id))
-                //    {
-                //        ctx.Platforms.Add(platform);
-                //    }
-                //}
+                foreach (var platform in platforms)
+                {
+                    if (!ctx.Platforms.Any(c => c.Id == platform.Id))
+                    {
+                        ctx.Platforms.Add(platform);
+                    }
+                }
 
                 //foreach (var order in orders)
                 //{
@@ -88,13 +90,13 @@ namespace CarsFactory.Client
                 //    }
                 //}
 
-                //foreach (var engine in engines)
-                //{
-                //    if (!ctx.Engines.Any(c => c.Id == engine.Id))
-                //    {
-                //        ctx.Engines.Add(engine);
-                //    }
-                //}
+                foreach (var engine in engines)
+                {
+                    if (!ctx.Engines.Any(c => c.Id == engine.Id))
+                    {
+                        ctx.Engines.Add(engine);
+                    }
+                }
 
                 //foreach (var model in models)
                 //{
@@ -131,8 +133,16 @@ namespace CarsFactory.Client
             var zip = ZipFile.Open(filePath, ZipArchiveMode.Read);
             using (zip)
             {
-                var cars = ExcelFromZip.GetAllTowns(zip);
-                repo.ExtractTownsFromZip(cars);
+                var entries = ExcelFromZip.GetFileEntries(zip);
+                var currentTownEntries = ExcelFromZip.GetCurrentEntries(entries, "Towns.xls");
+                var currentPlatformEntries = ExcelFromZip.GetCurrentEntries(entries, "Platforms.xls");
+                var currentEngineEntries = ExcelFromZip.GetCurrentEntries(entries, "Engines.xls");
+                var towns = ExcelFromZip.GetAllTowns(new List<Town>(), currentTownEntries);
+                var platforms = ExcelFromZip.GetAllPlatforms(new List<Platform>(), currentPlatformEntries);
+                var engines = ExcelFromZip.GetAllEngines(new List<Engine>(), currentEngineEntries);
+                repo.ExtractTownsFromZip(towns);
+                repo.ExtractPlatformsFromZip(platforms);
+                repo.ExtractEnginesFromZip(engines);
             }
         }
     }

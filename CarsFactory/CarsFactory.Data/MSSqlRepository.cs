@@ -23,7 +23,7 @@ namespace CarsFactory.Data
 
         // TODO: Create DtoObjects
 
-        public void ExtractTownsFromZip(List<Town> towns)
+        public void ExtractTownsFromZip(ICollection<Town> towns)
         {
             try
             {
@@ -36,6 +36,58 @@ namespace CarsFactory.Data
                         if (!ctx.Towns.Any(t => t.Name == town.Name))
                         {
                             ctx.Towns.Add(town);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractPlatformsFromZip(ICollection<Platform> platforms)
+        {
+            try
+            {
+                var ctx = new CarsFactoryDbContext();
+
+                using (ctx)
+                {
+                    foreach (var platform in platforms)
+                    {
+                        if (!ctx.Platforms.Any(p => p.Id == platform.Id))
+                        {
+                            ctx.Platforms.Add(platform);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractEnginesFromZip(ICollection<Engine> engines)
+        {
+            try
+            {
+                var ctx = new CarsFactoryDbContext();
+
+                using (ctx)
+                {
+                    foreach (var engine in engines)
+                    {
+                        if (!ctx.Engines.Any(e => e.Id == engine.Id))
+                        {
+                            ctx.Engines.Add(engine);
                         }
                     }
 

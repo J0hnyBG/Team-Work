@@ -6,85 +6,240 @@ using System.IO;
 using System.IO.Compression;
 
 using CarsFactory.Models;
+using CarsFactory.Models.Enums;
 
 namespace CarsFactory.Utilities
 {
+    // TODO: Refactor class
     public class ExcelFromZip
     {
         private const string TempExcelFile = "TempExcelFile.xls";
 
-        public static List<Town> GetAllTowns(ZipArchive zip)
+        public static IReadOnlyCollection<ZipArchiveEntry> GetFileEntries(ZipArchive zip)
         {
-            var dealershipTowns = new List<Town>();
+            return zip.Entries;
+        }
 
-            foreach (var entry in zip.Entries)
+        public static IReadOnlyCollection<ZipArchiveEntry> GetCurrentEntries(IReadOnlyCollection<ZipArchiveEntry> entries, string endPathFile)
+        {
+            var currentEntries = new List<ZipArchiveEntry>();
+            foreach (var entry in entries)
             {
-                if (entry.FullName.EndsWith("Towns.xls"))
+                if (entry.FullName.EndsWith(endPathFile))
                 {
-                    var entryParts = entry.FullName.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
-                    var fileName = entry.FullName;
-                    if (entryParts.Length > 1)
+
+                    switch (endPathFile)
                     {
-                        fileName = entryParts[entryParts.Length - 1];
+                        case "Towns.xls":
+                            currentEntries.Add(entry);
+                            break;
+                        case "Platforms.xls":
+                            currentEntries.Add(entry);
+                            break;
+                        case "Engines.xls":
+                            currentEntries.Add(entry);
+                            break;
                     }
+                }
+            }
 
-                    using (var ms = new MemoryStream())
+            return currentEntries;
+        }
+
+        public static ICollection<Town> GetAllTowns(ICollection<Town> dealershipTowns, IReadOnlyCollection<ZipArchiveEntry> townEntries)
+        {
+
+            foreach (var entry in townEntries)
+            {
+                var fileName = GetFileName(entry);
+
+                using (var ms = new MemoryStream())
+                {
+                    var file = File.Create(TempExcelFile);
+                    using (file)
                     {
-                        var file = File.Create(TempExcelFile);
-                        using (file)
-                        {
-                            CopyStream(entry.Open(), ms);
-                            ms.WriteTo(file);
-                        }
+                        CopyStream(entry.Open(), ms);
+                        ms.WriteTo(file);
                     }
+                }
 
-                    var connection = new OleDbConnection();
-                    var connectionString = new OleDbConnectionStringBuilder
+                var connection = new OleDbConnection();
+                OleDbConnectionStringBuilder connectionString = SetUpConnectionString();
+
+                connection.ConnectionString = connectionString.ToString();
+
+                using (connection)
+                {
+                    connection.Open();
+
+                    var excelSchema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    var sheetName = excelSchema.Rows[0]["TABLE_NAME"].ToString();
+
+                    var oleDbCommand = new OleDbCommand("SELECT * FROM [" + sheetName + "]", connection);
+
+                    using (var adapter = new OleDbDataAdapter(oleDbCommand))
                     {
-                        { "Provider", "Microsoft.ACE.OLEDB.12.0" },
-                        { "Extended Properties", "Excel 12.0 XML" },
-                        { "Data Source", TempExcelFile }
-                    };
+                        var dataSet = new DataSet();
+                        adapter.Fill(dataSet);
 
-                    connection.ConnectionString = connectionString.ToString();
-
-                    using (connection)
-                    {
-                        connection.Open();
-
-                        var excelSchema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-
-                        var sheetName = excelSchema.Rows[0]["TABLE_NAME"].ToString();
-
-                        var oleDbCommand = new OleDbCommand("SELECT * FROM [" + sheetName + "]", connection);
-
-                        using (var adapter = new OleDbDataAdapter(oleDbCommand))
+                        using (var reader = dataSet.CreateDataReader())
                         {
-                            var dataSet = new DataSet();
-                            adapter.Fill(dataSet);
-
-                            using (var reader = dataSet.CreateDataReader())
+                            while (reader.Read())
                             {
-                                var count = 0;
-                                while (reader.Read())
+                                var town = new Town()
                                 {
-                                    var town = new Town()
-                                    {
-                                        Id = count + 1000,
-                                        Name = reader["Name"].ToString(),
-                                    };
-                                    Console.WriteLine(town.Name);
-                                    dealershipTowns.Add(town);
-                                    count++;
-                                }
+                                    Name = reader["Name"].ToString(),
+                                };
+                                Console.WriteLine(town.Name);
+                                dealershipTowns.Add(town);
                             }
                         }
                     }
                 }
             }
-
             File.Delete(TempExcelFile);
+
             return dealershipTowns;
+        }
+
+        public static ICollection<Platform> GetAllPlatforms(ICollection<Platform> dealershipPlatforms, IReadOnlyCollection<ZipArchiveEntry> platformEntries)
+        {
+            foreach (var entry in platformEntries)
+            {
+
+                var connection = new OleDbConnection();
+                OleDbConnectionStringBuilder connectionString = SetUpConnectionString();
+
+                connection.ConnectionString = connectionString.ToString();
+
+                var fileName = GetFileName(entry);
+
+                using (var ms = new MemoryStream())
+                {
+                    var file = File.Create(TempExcelFile);
+                    using (file)
+                    {
+                        CopyStream(entry.Open(), ms);
+                        ms.WriteTo(file);
+                    }
+                }
+
+                using (connection)
+                {
+                    connection.Open();
+
+
+                    var excelSchema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    var sheetName = excelSchema.Rows[0]["TABLE_NAME"].ToString();
+
+                    var oleDbCommand = new OleDbCommand("SELECT * FROM [" + sheetName + "]", connection);
+
+                    using (var adapter = new OleDbDataAdapter(oleDbCommand))
+                    {
+                        var dataSet = new DataSet();
+                        adapter.Fill(dataSet);
+
+                        using (var reader = dataSet.CreateDataReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var platform = new Platform()
+                                {
+                                    PlatformType = (PlatformType)Enum.Parse(typeof(PlatformType), reader["PlatformType"].ToString()),
+                                    NumberOfDoors = int.Parse(reader["NumberOfDoors"].ToString())
+                                };
+                                Console.WriteLine(platform.NumberOfDoors);
+                                dealershipPlatforms.Add(platform);
+                            }
+                        }
+                    }
+                }
+            }
+            File.Delete(TempExcelFile);
+
+            return dealershipPlatforms;
+        }
+
+        public static ICollection<Engine> GetAllEngines(ICollection<Engine> dealershipEngines, IReadOnlyCollection<ZipArchiveEntry> engineEntries)
+        {
+
+            foreach (var entry in engineEntries)
+            {
+                var fileName = GetFileName(entry);
+
+                using (var ms = new MemoryStream())
+                {
+                    var file = File.Create(TempExcelFile);
+                    using (file)
+                    {
+                        CopyStream(entry.Open(), ms);
+                        ms.WriteTo(file);
+                    }
+                }
+
+                var connection = new OleDbConnection();
+                OleDbConnectionStringBuilder connectionString = SetUpConnectionString();
+
+                connection.ConnectionString = connectionString.ToString();
+
+                using (connection)
+                {
+                    connection.Open();
+
+                    var excelSchema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    var sheetName = excelSchema.Rows[0]["TABLE_NAME"].ToString();
+
+                    var oleDbCommand = new OleDbCommand("SELECT * FROM [" + sheetName + "]", connection);
+
+                    using (var adapter = new OleDbDataAdapter(oleDbCommand))
+                    {
+                        var dataSet = new DataSet();
+                        adapter.Fill(dataSet);
+
+                        using (var reader = dataSet.CreateDataReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var engine = new Engine()
+                                {
+                                    Fuel = (FuelType)Enum.Parse(typeof(FuelType), reader["Fuel"].ToString()),
+                                    HorsePower = int.Parse(reader["HorsePower"].ToString())
+                                };
+                                Console.WriteLine(engine.HorsePower);
+                                dealershipEngines.Add(engine);
+                            }
+                        }
+                    }
+                }
+            }
+            File.Delete(TempExcelFile);
+
+            return dealershipEngines;
+        }
+
+        private static OleDbConnectionStringBuilder SetUpConnectionString()
+        {
+            return new OleDbConnectionStringBuilder
+                    {
+                        { "Provider", "Microsoft.ACE.OLEDB.12.0" },
+                        { "Extended Properties", "Excel 12.0 XML" },
+                        { "Data Source", TempExcelFile }
+                    };
+        }
+
+        private static string GetFileName(ZipArchiveEntry entry)
+        {
+            var entryParts = entry.FullName.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            var fileName = entry.FullName;
+            if (entryParts.Length > 1)
+            {
+                fileName = entryParts[entryParts.Length - 1];
+            }
+
+            return fileName;
         }
 
         private static void CopyStream(Stream input, Stream output)
