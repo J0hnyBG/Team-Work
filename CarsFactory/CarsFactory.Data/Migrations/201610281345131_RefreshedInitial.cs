@@ -1,8 +1,8 @@
+using System;
+using System.Data.Entity.Migrations;
+
 namespace CarsFactory.Data.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-
     public partial class RefreshedInitial : DbMigration
     {
         public override void Up()

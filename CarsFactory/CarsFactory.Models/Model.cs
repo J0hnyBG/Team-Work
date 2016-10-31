@@ -1,8 +1,8 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarsFactory.Models
 {
-    using System.ComponentModel.DataAnnotations;
 
     public class Model
     {

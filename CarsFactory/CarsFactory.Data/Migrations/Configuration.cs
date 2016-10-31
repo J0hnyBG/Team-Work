@@ -1,9 +1,9 @@
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+
 namespace CarsFactory.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-
     public sealed class Configuration : DbMigrationsConfiguration<CarsFactoryDbContext>
     {
         public Configuration()

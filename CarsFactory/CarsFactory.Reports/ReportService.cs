@@ -1,14 +1,14 @@
-﻿namespace CarsFactory.Reports
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using CarsFactory.Reports.ReportManagers;
+using CarsFactory.Reports.ReportManagers.Abstract;
+using CarsFactory.Reports.Reports.Contracts;
+
+namespace CarsFactory.Reports
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
 
-    using ReportManagers;
-    using ReportManagers.Abstract;
-
-    using Reports.Contracts;
 
     public class ReportService
     {

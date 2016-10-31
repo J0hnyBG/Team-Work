@@ -1,9 +1,8 @@
-﻿namespace CarsFactory.Reports.Documents.Abstract
+﻿using System.Collections.Generic;
+using CarsFactory.Reports.Documents.Contracts;
+
+namespace CarsFactory.Reports.Documents.Abstract
 {
-    using System.Collections.Generic;
-
-    using Contracts;
-
     public abstract class AbstractDocumentAdapter : IDocumentAdapter
     {
         protected AbstractDocumentAdapter(string fileLocation)

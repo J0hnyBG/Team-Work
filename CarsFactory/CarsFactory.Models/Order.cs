@@ -1,13 +1,13 @@
-﻿namespace CarsFactory.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using CarsFactory.Models.Enums;
 
-    using Enums;
+namespace CarsFactory.Models
+{
 
     public class Order
     {

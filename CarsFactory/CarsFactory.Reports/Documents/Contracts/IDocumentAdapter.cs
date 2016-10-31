@@ -1,7 +1,7 @@
-﻿namespace CarsFactory.Reports.Documents.Contracts
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace CarsFactory.Reports.Documents.Contracts
+{
     public interface IDocumentAdapter
     {
         string FileLocation { get; }

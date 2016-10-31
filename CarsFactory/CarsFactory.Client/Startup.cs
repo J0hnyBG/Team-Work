@@ -1,15 +1,12 @@
-﻿namespace CarsFactory.Client
+﻿using System;
+using System.Linq;
+using CarsFactory.Data;
+using CarsFactory.MongoDb.Data;
+using System.Threading.Tasks;
+using CarsFactory.Reports;
+
+namespace CarsFactory.Client
 {
-    using System;
-    using System.Linq;
-
-    using CarsFactory.Data;
-    using CarsFactory.MongoDb.Data;
-
-    using System.Threading.Tasks;
-
-    using Reports;
-
     public class Startup
     {
         public static void Main()

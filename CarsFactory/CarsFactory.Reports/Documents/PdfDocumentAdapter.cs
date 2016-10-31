@@ -1,17 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using CarsFactory.Reports.Documents.Abstract;
+using CarsFactory.Reports.Documents.Contracts;
+
 namespace CarsFactory.Reports.Documents
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-
-    using Abstract;
-
-    using Contracts;
-
-    using iTextSharp.text;
-    using iTextSharp.text.pdf;
-    using iTextSharp.text.pdf.draw;
-
     public class PdfDocumentAdapter : AbstractDocumentAdapter
     {
         private const float DefaultCellPadding = 10f;

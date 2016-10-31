@@ -1,12 +1,10 @@
-﻿namespace CarsFactory.Reports.ReportManagers.Abstract
+﻿using System;
+using System.Collections.Generic;
+using CarsFactory.Reports.Reports.Contracts;
+using CarsFactory.Reports.Documents.Contracts;
+
+namespace CarsFactory.Reports.ReportManagers.Abstract
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Documents.Contracts;
-
-    using Reports.Contracts;
-
     public abstract class ReportManager
     {
         protected ICollection<IReport> Reports { get; private set; }

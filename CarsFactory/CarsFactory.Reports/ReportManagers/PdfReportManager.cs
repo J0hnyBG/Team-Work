@@ -1,10 +1,9 @@
-﻿namespace CarsFactory.Reports.ReportManagers
+﻿using CarsFactory.Reports.Documents;
+using CarsFactory.Reports.Documents.Contracts;
+using CarsFactory.Reports.ReportManagers.Abstract;
+
+namespace CarsFactory.Reports.ReportManagers
 {
-    using Abstract;
-
-    using Documents;
-    using Documents.Contracts;
-
     public class PdfReportManager : ReportManager
     {
         protected override IDocumentAdapter CreateDocument(string fileLocation)
