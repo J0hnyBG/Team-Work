@@ -76,6 +76,7 @@
     <Compile Include="Documents\PdfDocumentAdapter.cs" />
     <Compile Include="Files\Contracts\IFileManager.cs" />
     <Compile Include="Files\FileManager.cs" />
+    <Compile Include="GenerateXmlReport.cs" />
     <Compile Include="ReportManagers\Abstract\ReportManager.cs" />
     <Compile Include="ReportManagers\PdfReportManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

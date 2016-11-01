@@ -28,6 +28,10 @@ namespace CarsFactory.Client
             {
                 await GetMongoData();
             }).Wait();
+
+            // Task 3
+            var generateXml = new GenerateXmlReport();
+            generateXml.CreateReport();
         }
 
         // TODO: Refactor method

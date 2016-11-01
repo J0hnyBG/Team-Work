@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<manufacturers>
+  <manufacturer name="Audi">
+    <car model="RS 7 " created-on="12/12/2014 12:00:00 AM" />
+    <car model="Bla" created-on="6/6/2014 12:00:00 AM" />
+  </manufacturer>
+  <manufacturer name="Mecedes">
+    <car model="E Class" created-on="5/5/2016 12:00:00 AM" />
+  </manufacturer>
+  <manufacturer name="Porsche">
+    <car model="Passat" created-on="3/3/2011 12:00:00 AM" />
+    <car model="Blu" created-on="5/5/2014 12:00:00 AM" />
+  </manufacturer>
+</manufacturers>
