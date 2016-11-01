@@ -2,13 +2,25 @@
 <manufacturers>
   <manufacturer name="Audi">
     <car model="RS 7 " created-on="12/12/2014 12:00:00 AM" />
-    <car model="Bla" created-on="6/6/2014 12:00:00 AM" />
+    <car model="A4" created-on="6/6/2014 12:00:00 AM" />
+  </manufacturer>
+  <manufacturer name="VW">
+    <car model="Passat" created-on="3/3/2011 12:00:00 AM" />
   </manufacturer>
   <manufacturer name="Mecedes">
     <car model="E Class" created-on="5/5/2016 12:00:00 AM" />
   </manufacturer>
   <manufacturer name="Porsche">
-    <car model="Passat" created-on="3/3/2011 12:00:00 AM" />
-    <car model="Blu" created-on="5/5/2014 12:00:00 AM" />
+    <car model="Cayene" created-on="5/5/2014 12:00:00 AM" />
+  </manufacturer>
+  <manufacturer name="BMW">
+    <car model="I" created-on="10/2/2015 12:00:00 AM" />
+    <car model="765" created-on="6/6/2012 12:00:00 AM" />
+  </manufacturer>
+  <manufacturer name="Lamborghini">
+    <car model="Aventador" created-on="10/3/2014 12:00:00 AM" />
+  </manufacturer>
+  <manufacturer name="Ferarri">
+    <car model="360 Modena" created-on="3/7/2010 12:00:00 AM" />
   </manufacturer>
 </manufacturers>

@@ -6,14 +6,20 @@ using CarsFactory.Data;
 
 namespace CarsFactory.Reports
 {
-    public class GenerateXmlReport
+    /// <summary>
+    /// Class for generating and saving XML
+    /// </summary>
+    public static class GenerateXmlReport
     {
         private const string ProcessInformation = "Gathering information...";
         private const string SaveFilePath = @"..\..\..\SampleData\XML\";
         private const string FileName = "CarProducedReport.xml";
         private const string RootName = "manufacturers";
 
-        public void CreateReport()
+        /// <summary>
+        /// Creates XML reports and save them as a XML file
+        /// </summary>
+        public static void CreateReport()
         {
             Console.WriteLine(ProcessInformation);
             XmlDocument report = new XmlDocument();
