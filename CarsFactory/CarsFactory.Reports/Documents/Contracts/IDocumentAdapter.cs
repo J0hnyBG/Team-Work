@@ -8,8 +8,7 @@ namespace CarsFactory.Reports.Documents.Contracts
 
         IDocumentAdapter AddRow(string text);
 
-        IDocumentAdapter AddTabularData<T>(ICollection<T> tableData)
-            where T: new();
+        IDocumentAdapter AddTabularData<T>(ICollection<T> tableData);
 
         IDocumentAdapter NewPage();
 

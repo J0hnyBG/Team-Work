@@ -20,7 +20,7 @@ namespace CarsFactory.Client
                 dbContext.Database.CreateIfNotExists();
 
                 var reportService = new ReportService();
-                reportService.SaveAllReports("..\\..\\..\\Output");
+                reportService.SaveAllReports(@"..\..\..\Output\");
             }
 
             GetDataFromZip();

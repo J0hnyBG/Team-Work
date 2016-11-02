@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+
 using CarsFactory.Reports.Reports.Contracts;
 using CarsFactory.Reports.Documents.Contracts;
 
@@ -16,6 +18,11 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
                 throw new InvalidOperationException("No reports to generate! You must add some reports first.");
             }
 
+            if (!Directory.Exists(directoryLocation))
+            {
+                Directory.CreateDirectory(directoryLocation);
+            }
+            
             foreach (IReport report in this.Reports)
             {
                 var fileNameAndPath =
@@ -56,7 +63,7 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
             {
                 foreach (var report in reports)
                 {
-                    this.Reports.Add(report);
+                    this.Add(report);
                 }
             }
         }

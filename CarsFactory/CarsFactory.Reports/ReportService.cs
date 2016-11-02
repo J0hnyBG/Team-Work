@@ -8,8 +8,6 @@ using CarsFactory.Reports.Reports.Contracts;
 
 namespace CarsFactory.Reports
 {
-
-
     public class ReportService
     {
         public void SaveAllReports(string directoryPath)
@@ -22,7 +20,7 @@ namespace CarsFactory.Reports
 
         private ICollection<IReport> GetAllReports()
         {
-            //TODO: filter differend kinds of reports
+            //TODO: filter different kinds of reports
             var assembly = this.GetType().GetTypeInfo().Assembly;
             var typeInfos = assembly.DefinedTypes.Where(type => type.ImplementedInterfaces.Any(inter => inter == typeof(IReport)));
 

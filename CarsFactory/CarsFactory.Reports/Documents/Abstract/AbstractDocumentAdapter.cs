@@ -14,8 +14,7 @@ namespace CarsFactory.Reports.Documents.Abstract
 
         public abstract IDocumentAdapter AddRow(string text);
 
-        public abstract IDocumentAdapter AddTabularData<T>(ICollection<T> tableData)
-            where T: new();
+        public abstract IDocumentAdapter AddTabularData<T>(ICollection<T> tableData);
 
         public abstract IDocumentAdapter NewPage();
 

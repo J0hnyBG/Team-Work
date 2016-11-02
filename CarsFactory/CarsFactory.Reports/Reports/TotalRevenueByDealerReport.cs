@@ -1,16 +1,13 @@
-﻿namespace CarsFactory.Reports.Reports
+﻿using System;
+using System.Linq;
+
+using CarsFactory.Data;
+using CarsFactory.Models.Enums;
+using CarsFactory.Reports.Documents.Contracts;
+using CarsFactory.Reports.Reports.Contracts;
+
+namespace CarsFactory.Reports.Reports
 {
-    using System;
-    using System.Linq;
-
-    using Contracts;
-
-    using Data;
-
-    using Documents.Contracts;
-
-    using Models;
-
     public class TotalRevenueByDealerReport : IReport
     {
         public void Generate(IDocumentAdapter document)
@@ -20,10 +17,19 @@
             using (dbContext)
             {
                 var totalRevenueByDealers = (from dealer in dbContext.Dealers
-                                             let totalRevenue = dealer.Cars.Sum(x => x.Price)
+                                             let totalRevenue =
+                                                 (decimal?)dealer.Cars.Where(
+                                                                             y =>
+                                                                                 y.OrderId != null &&
+                                                                                 y.Order.OrderStatus == OrderStatus.Closed)
+                                                                 .Sum(x => x.Price)
                                              let town = dealer.Town.Name
-                                             let orderCount = dealer.Cars.Count(car => car.OrderId != null)
-                                             select new TotalRevenueByDealer
+                                             let orderCount =
+                                                 dealer.Cars.Count(
+                                                                   y =>
+                                                                       y.OrderId != null &&
+                                                                       y.Order.OrderStatus == OrderStatus.Closed)
+                                             select new
                                                     {
                                                         Dealer = dealer.Name,
                                                         TotalRevenue = totalRevenue,
@@ -42,5 +48,3 @@
         }
     }
 }
-
-
