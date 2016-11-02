@@ -1,16 +1,11 @@
-﻿namespace CarsFactory.Reports.Reports
+﻿using System;
+using System.Linq;
+using CarsFactory.Reports.Documents.Contracts;
+using CarsFactory.Reports.Reports.Contracts;
+using CarsFactory.Data;
+using CarsFactory.Models;
+namespace CarsFactory.Reports.Reports
 {
-    using System;
-    using System.Linq;
-
-    using Contracts;
-
-    using Data;
-
-    using Documents.Contracts;
-
-    using Models;
-
     public class TotalRevenueByDealerReport : IReport
     {
         public void Generate(IDocumentAdapter document)
