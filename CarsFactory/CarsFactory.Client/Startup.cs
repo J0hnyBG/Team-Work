@@ -49,7 +49,6 @@ namespace CarsFactory.Client
 
             var ctx = new CarsFactoryDbContext();
 
-
             //Console.WriteLine(cars.Count);
             //Console.WriteLine(models.Count);
             //Console.WriteLine(manufacturers.Count);
