@@ -16,8 +16,7 @@ namespace CarsFactory.Models
             get
             {
                 return this.horsePower;
-            }
-            `
+            }            
             set
             {
                 if (value <= 0)

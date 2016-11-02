@@ -8,6 +8,7 @@ using System.IO.Compression;
 using CarsFactory.Utilities;
 using System.Collections.Generic;
 using CarsFactory.Models;
+using CarsFactory.Reports.Reports;
 
 namespace CarsFactory.Client
 {
@@ -22,6 +23,10 @@ namespace CarsFactory.Client
                 var reportService = new ReportService();
                 reportService.SaveAllReports(@"..\..\..\Output\");
             }
+
+            //Problem 4 - JSON Reports
+            //After db is populated this will create the JSON reports
+            //GenerateJSONReport.GenerateJSON();
 
             //GetDataFromZip();
             //Task.Run(async () =>
