@@ -8,7 +8,7 @@ using CarsFactory.Reports.Reports.Contracts;
 
 namespace CarsFactory.Reports.Reports
 {
-    public class TotalRevenueByDealerReport : IReport
+    public class TopTotalRevenueByDealerReport : IReport
     {
         public void Generate(IDocumentAdapter document)
         {

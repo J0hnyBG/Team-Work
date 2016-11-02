@@ -23,14 +23,14 @@ namespace CarsFactory.Client
                 reportService.SaveAllReports(@"..\..\..\Output\");
             }
 
-            GetDataFromZip();
-            Task.Run(async () =>
-            {
-                await GetMongoData();
-            }).Wait();
+            //GetDataFromZip();
+            //Task.Run(async () =>
+            //{
+            //    await GetMongoData();
+            //}).Wait();
 
-            // Task 3         
-            GenerateXmlReport.CreateReport();
+            //// Task 3         
+            //GenerateXmlReport.CreateReport();
         }
 
         // TODO: Refactor method

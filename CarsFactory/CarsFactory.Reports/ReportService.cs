@@ -22,7 +22,7 @@ namespace CarsFactory.Reports
         {
             //TODO: filter different kinds of reports
             var assembly = this.GetType().GetTypeInfo().Assembly;
-            var typeInfos = assembly.DefinedTypes.Where(type => type.ImplementedInterfaces.Any(inter => inter == typeof(IReport)));
+            IEnumerable<Type> typeInfos = assembly.DefinedTypes.Where(type => type.ImplementedInterfaces.Any(inter => inter == typeof(IReport)));
 
             var reports = new List<IReport>();
             foreach (var typeInfo in typeInfos)

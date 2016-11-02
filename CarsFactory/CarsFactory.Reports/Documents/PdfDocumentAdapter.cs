@@ -6,6 +6,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
 using CarsFactory.Reports.Documents.Abstract;
 using CarsFactory.Reports.Documents.Contracts;
+using CarsFactory.Utilities.Extensions;
 
 namespace CarsFactory.Reports.Documents
 {
@@ -22,10 +23,10 @@ namespace CarsFactory.Reports.Documents
             : base(fileLocation)
         {
             //TODO: Abstract dependencies
-            var fs = new FileStream(fileLocation + ".pdf", FileMode.Create, FileAccess.Write, FileShare.None);
+            var fileStream = new FileStream(fileLocation + ".pdf", FileMode.Create, FileAccess.Write, FileShare.Read);
             this.document = new Document();
 
-            var wr = PdfWriter.GetInstance(this.document, fs);
+            PdfWriter.GetInstance(this.document, fileStream);
         }
 
         public override void Save()
@@ -55,7 +56,7 @@ namespace CarsFactory.Reports.Documents
 
             foreach (var property in modelProperties)
             {
-                var propertyName = property.Name;
+                var propertyName = property.Name.DivideWordsByCapitalLetters();
                 var cell = new PdfPCell(new Phrase(propertyName))
                 {
                     Colspan = DefaultColspan,

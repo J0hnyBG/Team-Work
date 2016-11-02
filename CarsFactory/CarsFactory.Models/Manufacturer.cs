@@ -16,7 +16,7 @@ namespace CarsFactory.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(15)]
+        [MaxLength(50)]
         [Index(IsUnique = true)]
         public string Name { get; set; }
 

@@ -19,18 +19,17 @@ namespace CarsFactory.Reports.Reports
                 var lastYear = DateTime.Now.Year - 1;
                 var totalRevenueForThePastMonth = (from dealer in dbContext.Dealers
                                                    let totalRevenue =
-                                                       //FIXME:
-                                                       dealer.Cars.Where(
+                                                       (decimal?)dealer.Cars.Where(
                                                                          car =>
                                                                              car.Order != null &&
                                                                              car.Order.Date.Year > lastYear &&
                                                                              car.Order.OrderStatus == OrderStatus.Closed)
                                                              .Sum(c => c.Price)
                                                    let town = dealer.Town.Name
-                                                   //FIXME:
-                                                   let orderCount = dealer.Cars.Count(car => car.Order != null &&
-                                                                                        car.Order.Date.Year > lastYear &&
-                                                                                        car.Order.OrderStatus == OrderStatus.Closed)
+                                                   let orderCount = dealer.Cars.Count(car => car.Order != null
+                                                                                             && car.Order.Date.Year > lastYear 
+                                                                                             && car.Order.OrderStatus == OrderStatus.Closed)
+                                                                                             orderby totalRevenue descending
                                                    select new
                                                           {
                                                               Dealer = dealer.Name,
@@ -38,8 +37,6 @@ namespace CarsFactory.Reports.Reports
                                                               Town = town,
                                                               TotalOrders = orderCount
                                                           })
-                    .OrderByDescending(x => x.TotalRevenue)
-                    .Take(10)
                     .ToList();
 
                 document.AddMetadata()
