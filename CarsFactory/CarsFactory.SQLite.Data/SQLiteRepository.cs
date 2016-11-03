@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using CarsFactory.DtoModels;
+using System.Linq;
 
 namespace CarsFactory.SQLite.Data
 {
@@ -8,8 +9,14 @@ namespace CarsFactory.SQLite.Data
     {
         public IList<TownInfoDto> GetTownsData()
         {
-            // TODO:
-            return new List<TownInfoDto>();
+            var ctx = new TownInfoEntities();
+
+            var towns = ctx.TownInfoes.Select(t => new TownInfoDto()
+            {
+                Name = t.Name
+            }).ToList();
+
+            return towns;
         }
     }
 }

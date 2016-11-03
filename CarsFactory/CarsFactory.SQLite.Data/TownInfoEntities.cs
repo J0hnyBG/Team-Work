@@ -15,6 +15,6 @@ namespace CarsFactory.SQLite.Data
             throw new UnintentionalCodeFirstException();
         }
 
-        public virtual IDbSet<TownInfo> TeamInfoes { get; set; }
+        public virtual IDbSet<TownInfo> TownInfoes { get; set; }
     }
 }
