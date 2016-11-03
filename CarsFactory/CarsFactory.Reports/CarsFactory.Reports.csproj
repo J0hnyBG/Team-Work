@@ -76,6 +76,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,7 +91,8 @@
     <Compile Include="Documents\PdfDocumentAdapter.cs" />
     <Compile Include="Files\Contracts\IFileManager.cs" />
     <Compile Include="Files\FileManager.cs" />
-    <Compile Include="GenerateJSONReport.cs" />
+    <Compile Include="GenerateDataFromMongoDb.cs" />
+    <Compile Include="GenerateDataFromZipFiles.cs" />
     <Compile Include="GenerateXmlReport.cs" />
     <Compile Include="ReportManagers\Abstract\ReportManager.cs" />
     <Compile Include="ReportManagers\PdfReportManager.cs" />
@@ -113,6 +116,10 @@
     <ProjectReference Include="..\CarsFactory.Models\CarsFactory.Models.csproj">
       <Project>{b5e2b4ab-d64f-49f8-bafc-9fa9b7b76547}</Project>
       <Name>CarsFactory.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarsFactory.MongoDb.Data\CarsFactory.MongoDb.Data.csproj">
+      <Project>{756db345-ed04-419b-9575-4688c2c383da}</Project>
+      <Name>CarsFactory.MongoDb.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\CarsFactory.Utilities\CarsFactory.Utilities.csproj">
       <Project>{bbc5ab48-8c97-4ad6-bcc3-be99fda0c5cd}</Project>

@@ -17,7 +17,7 @@ namespace CarsFactory.Models
 
         [Required]
         [MaxLength(50)]
-        [Index(IsUnique = true)]
+        //[Index(IsUnique = true)]
         public string Name { get; set; }
 
         public virtual ICollection<Model> Models { get; set; }

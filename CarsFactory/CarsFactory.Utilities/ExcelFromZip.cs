@@ -39,6 +39,12 @@ namespace CarsFactory.Utilities
                         case "Engines.xls":
                             currentEntries.Add(entry);
                             break;
+                        case "Models.xls":
+                            currentEntries.Add(entry);
+                            break;
+                        case "Cars.xls":
+                            currentEntries.Add(entry);
+                            break;
                     }
                 }
             }
@@ -218,6 +224,168 @@ namespace CarsFactory.Utilities
             File.Delete(TempExcelFile);
 
             return dealershipEngines;
+        }
+
+        public static ICollection<Model> GetAllModels(ICollection<Model> dealershipModels, IReadOnlyCollection<ZipArchiveEntry> modelEntries)
+        {
+
+            foreach (var entry in modelEntries)
+            {
+                var fileName = GetFileName(entry);
+
+                using (var ms = new MemoryStream())
+                {
+                    var file = File.Create(TempExcelFile);
+                    using (file)
+                    {
+                        CopyStream(entry.Open(), ms);
+                        ms.WriteTo(file);
+                    }
+                }
+
+                var connection = new OleDbConnection();
+                OleDbConnectionStringBuilder connectionString = SetUpConnectionString();
+
+                connection.ConnectionString = connectionString.ToString();
+
+                using (connection)
+                {
+                    connection.Open();
+
+                    var excelSchema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    var sheetName = excelSchema.Rows[0]["TABLE_NAME"].ToString();
+
+                    var oleDbCommand = new OleDbCommand("SELECT * FROM [" + sheetName + "]", connection);
+
+                    using (var adapter = new OleDbDataAdapter(oleDbCommand))
+                    {
+                        var dataSet = new DataSet();
+                        adapter.Fill(dataSet);
+
+                        using (var reader = dataSet.CreateDataReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var model = new Model()
+                                {
+                                    Name = reader["Name"].ToString(),
+                                    Year = DateTime.Parse(reader["Year"].ToString()),
+                                    Engine =
+                                    new Engine()
+                                    {
+                                        Fuel = (FuelType)Enum.Parse(typeof(FuelType), reader["Fuel"].ToString()),
+                                        HorsePower = int.Parse(reader["HorsePower"].ToString())
+                                    },
+                                    Manufacturer = new Manufacturer()
+                                    {
+                                        Name = reader["Manufacturer"].ToString()
+                                    },
+                                    Platform = new Platform()
+                                    {
+                                        PlatformType = (PlatformType)Enum.Parse(typeof(PlatformType), reader["PlatformType"].ToString()),
+                                        NumberOfDoors = 4,
+                                    }
+                                };
+                                Console.WriteLine(model.Name);
+                                dealershipModels.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+            File.Delete(TempExcelFile);
+
+            return dealershipModels;
+        }
+
+        public static ICollection<Car> GetAllCars(ICollection<Car> dealershipCars, IReadOnlyCollection<ZipArchiveEntry> carEntries)
+        {
+
+            foreach (var entry in carEntries)
+            {
+                var fileName = GetFileName(entry);
+
+                using (var ms = new MemoryStream())
+                {
+                    var file = File.Create(TempExcelFile);
+                    using (file)
+                    {
+                        CopyStream(entry.Open(), ms);
+                        ms.WriteTo(file);
+                    }
+                }
+
+                var connection = new OleDbConnection();
+                OleDbConnectionStringBuilder connectionString = SetUpConnectionString();
+
+                connection.ConnectionString = connectionString.ToString();
+
+                using (connection)
+                {
+                    connection.Open();
+
+                    var excelSchema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    var sheetName = excelSchema.Rows[0]["TABLE_NAME"].ToString();
+
+                    var oleDbCommand = new OleDbCommand("SELECT * FROM [" + sheetName + "]", connection);
+
+                    using (var adapter = new OleDbDataAdapter(oleDbCommand))
+                    {
+                        var dataSet = new DataSet();
+                        adapter.Fill(dataSet);
+
+                        using (var reader = dataSet.CreateDataReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var car = new Car()
+                                {
+                                    Model = new Model()
+                                    {
+                                    Name = reader["Model"].ToString(),
+                                    Engine = new Engine()
+                                    {
+                                        Fuel = (FuelType)Enum.Parse(typeof(FuelType), reader["Fuel"].ToString()),
+                                        HorsePower = int.Parse(reader["HorsePower"].ToString())
+                                    },
+                                    Manufacturer = new Manufacturer()
+                                    {
+                                        Name = "mobile.bg"
+                                    },
+                                    Platform = new Platform()
+                                    {
+                                        PlatformType = (PlatformType)Enum.Parse(typeof(PlatformType), reader["PlatformType"].ToString())
+                                    }
+                                    },
+                                    Year = DateTime.Parse(reader["Year"].ToString()),
+                                    Dealer =
+                                    new Dealer()
+                                    {
+                                        Name = reader["Dealer"].ToString(),
+                                        Town = new Town()
+                                        {
+                                            Name = reader["DealerTown"].ToString()
+                                        }
+                                    },
+                                    Order = new Order()
+                                    {
+                                        OrderStatus = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader["OrderStatus"].ToString()),
+                                        Date = DateTime.Now
+                                    },
+                                    Price = decimal.Parse(reader["Price"].ToString())
+                                };
+                                Console.WriteLine(car.Model.Name);
+                                dealershipCars.Add(car);
+                            }
+                        }
+                    }
+                }
+            }
+            File.Delete(TempExcelFile);
+
+            return dealershipCars;
         }
 
         private static OleDbConnectionStringBuilder SetUpConnectionString()

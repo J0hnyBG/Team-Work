@@ -100,5 +100,57 @@ namespace CarsFactory.Data
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public void ExtractModelsFromZip(ICollection<Model> models)
+        {
+            try
+            {
+                var ctx = new CarsFactoryDbContext();
+
+                using (ctx)
+                {
+                    foreach (var model in models)
+                    {
+                        if (!ctx.Models.Any(m => m.Id == model.Id))
+                        {
+                            ctx.Models.Add(model);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractCarsFromZip(ICollection<Car> cars)
+        {
+            //try
+            //{
+                var ctx = new CarsFactoryDbContext();
+
+                using (ctx)
+                {
+                    foreach (var car in cars)
+                    {
+                        if (!ctx.Cars.Any(c => c.Id == car.Id))
+                        {
+                            ctx.Cars.Add(car);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            //}
+            //catch (DbUpdateException ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+        }
     }
 }
