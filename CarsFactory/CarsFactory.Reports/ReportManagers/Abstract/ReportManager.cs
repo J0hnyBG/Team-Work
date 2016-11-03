@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
+using CarsFactory.Data;
 using CarsFactory.Reports.Reports.Contracts;
 using CarsFactory.Reports.Documents.Contracts;
 
@@ -11,7 +12,7 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
     {
         protected ICollection<IReport> Reports { get; private set; }
 
-        public void GenerateReports(string directoryLocation)
+        public void GenerateReports(string directoryLocation, CarsFactoryDbContext dbContext)
         {
             if (this.Reports == null || this.Reports.Count == 0)
             {
@@ -22,14 +23,14 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
             {
                 Directory.CreateDirectory(directoryLocation);
             }
-            
+
             foreach (IReport report in this.Reports)
             {
                 var fileNameAndPath =
                     $"{directoryLocation}{report.GetType().Name}-{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}";
                 var document = this.CreateDocument(fileNameAndPath);
 
-                report.Generate(document);
+                report.Generate(document, dbContext);
             }
         }
 
@@ -48,23 +49,16 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
             this.Reports.Add(report);
         }
 
-        public void Add(ICollection<IReport> reports)
+        public void Add(IEnumerable<IReport> reports)
         {
             if (reports == null)
             {
                 throw new ArgumentNullException(nameof(reports));
             }
 
-            if (this.Reports == null)
+            foreach (var report in reports)
             {
-                this.Reports = reports;
-            }
-            else
-            {
-                foreach (var report in reports)
-                {
-                    this.Add(report);
-                }
+                this.Add(report);
             }
         }
 

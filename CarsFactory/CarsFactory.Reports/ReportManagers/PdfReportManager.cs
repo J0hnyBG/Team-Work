@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-using CarsFactory.Reports.Documents;
+﻿using CarsFactory.Reports.Documents;
 using CarsFactory.Reports.Documents.Contracts;
 using CarsFactory.Reports.ReportManagers.Abstract;
 

@@ -10,30 +10,25 @@ namespace CarsFactory.Reports.Reports
 {
     public class TopSellingManufacturersReport : IReport
     {
-        public void Generate(IDocumentAdapter document)
+        public void Generate(IDocumentAdapter document, CarsFactoryDbContext dbContext)
         {
-            var dbContext = new CarsFactoryDbContext();
+            var topManufacturers =
+                (from car in
+                    dbContext.Cars.Where(car => car.OrderId != null && car.Order.OrderStatus == OrderStatus.Closed)
+                 group car by car.Model.Manufacturer.Name
+                 into g
+                 orderby g.Count() descending
+                 select new
+                        {
+                            Model = g.Key,
+                            OrderCount = g.Count()
+                        })
+                    .ToList();
 
-            using (dbContext)
-            {
-                var topManufacturers =
-                    (from car in
-                        dbContext.Cars.Where(car => car.OrderId != null && car.Order.OrderStatus == OrderStatus.Closed)
-                     group car by car.Model.Manufacturer.Name
-                     into g
-                     orderby g.Count() descending
-                     select new
-                            {
-                                Model = g.Key,
-                                OrderCount = g.Count()
-                            })
-                        .ToList();
-
-                document.AddMetadata()
-                        .AddRow($"Top selling manufacturers of all time. Generated on {DateTime.Now}")
-                        .AddTabularData(topManufacturers)
-                        .Save();
-            }
+            document.AddMetadata()
+                    .AddRow($"Top selling manufacturers of all time. Generated on {DateTime.Now}")
+                    .AddTabularData(topManufacturers)
+                    .Save();
         }
     }
 }

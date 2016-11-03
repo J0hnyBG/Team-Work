@@ -1,14 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Threading.Tasks;
+
 using CarsFactory.Data;
-using CarsFactory.MongoDb.Data;
-using System.Threading.Tasks;
 using CarsFactory.Reports;
-using System.IO.Compression;
-using CarsFactory.Utilities;
-using System.Collections.Generic;
-using CarsFactory.Models;
-using CarsFactory.Reports.Reports;
 
 namespace CarsFactory.Client
 {
@@ -21,7 +14,7 @@ namespace CarsFactory.Client
                 dbContext.Database.CreateIfNotExists();
 
                 var reportService = new ReportService();
-                reportService.SaveAllReports(@"..\..\..\Output\");
+                reportService.SaveAllReports(@"..\..\..\Output\", dbContext);
             }
 
             //Problem 4 - JSON Reports
@@ -31,11 +24,11 @@ namespace CarsFactory.Client
             //Problem 1 - Write data in SQL Database from Zip files.
             var zipFiles = new GenerateDataFromZipFiles();
             zipFiles.GetDataFromZip();
-            // Write data in MSSQL Database from MongoDb
-            Task.Run(async () =>
-            {
-                await GenerateDataFromMongoDb.GetMongoData();
-            }).Wait();
+            //Write data in MSSQL Database from MongoDb
+           Task.Run(async () =>
+           {
+               await GenerateDataFromMongoDb.GetMongoData();
+           }).Wait();
 
             //// Task 3         
             //GenerateXmlReport.CreateReport();

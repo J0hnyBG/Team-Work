@@ -89,8 +89,6 @@
     <Compile Include="Documents\Abstract\AbstractDocumentAdapter.cs" />
     <Compile Include="Documents\Contracts\IDocumentAdapter.cs" />
     <Compile Include="Documents\PdfDocumentAdapter.cs" />
-    <Compile Include="Files\Contracts\IFileManager.cs" />
-    <Compile Include="Files\FileManager.cs" />
     <Compile Include="GenerateDataFromMongoDb.cs" />
     <Compile Include="GenerateDataFromZipFiles.cs" />
     <Compile Include="GenerateXmlReport.cs" />

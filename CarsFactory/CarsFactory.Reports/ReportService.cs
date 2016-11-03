@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
+using CarsFactory.Data;
 using CarsFactory.Reports.ReportManagers;
 using CarsFactory.Reports.ReportManagers.Abstract;
 using CarsFactory.Reports.Reports.Contracts;
@@ -10,19 +12,17 @@ namespace CarsFactory.Reports
 {
     public class ReportService
     {
-        public void SaveAllReports(string directoryPath)
+        public void SaveAllReports(string directoryPath, CarsFactoryDbContext dbContext)
         {
             var allReports = this.GetAllReports();
             ReportManager manager = new PdfReportManager();
             manager.Add(allReports);
-            manager.GenerateReports(directoryPath);
+            manager.GenerateReports(directoryPath, dbContext);
         }
 
-        private ICollection<IReport> GetAllReports()
+        private IEnumerable<IReport> GetAllReports()
         {
             //TODO: filter different kinds of reports
-            var assembly = this.GetType().GetTypeInfo().Assembly;
-            IEnumerable<Type> typeInfos = assembly.DefinedTypes.Where(type => type.ImplementedInterfaces.Any(inter => inter == typeof(IReport)));
 
             var reports = new List<IReport>();
             foreach (var typeInfo in typeInfos)

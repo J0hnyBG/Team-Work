@@ -42,7 +42,8 @@ namespace CarsFactory.Models
             }
         }
 
-        public int TownId {
+        public int TownId
+        {
             get
             {
                 return this.townId;
@@ -54,6 +55,7 @@ namespace CarsFactory.Models
                 {
                     throw new ArgumentOutOfRangeException(TownNegativeOrZeroErrorMessage);
                 }
+
                 this.townId = value;
             }
         }
@@ -69,7 +71,7 @@ namespace CarsFactory.Models
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("Town cannot be null");
+                    throw new ArgumentNullException(TownCannotBeNullErrorMessage);
                 }
 
                 this.town = value;
