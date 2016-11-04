@@ -91,6 +91,7 @@
     <Compile Include="Documents\PdfDocumentAdapter.cs" />
     <Compile Include="GenerateDataFromMongoDb.cs" />
     <Compile Include="GenerateDataFromZipFiles.cs" />
+    <Compile Include="GenerateJSONReport.cs" />
     <Compile Include="GenerateXmlReport.cs" />
     <Compile Include="ReportManagers\Abstract\ReportManager.cs" />
     <Compile Include="ReportManagers\PdfReportManager.cs" />
