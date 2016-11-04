@@ -36,7 +36,7 @@ namespace CarsFactory.Reports.Reports
                 .ToList();
 
             document.AddMetadata()
-                    .AddRow($"Total revenue by dealer for the last year.")
+                    .AddHeader($"Total revenue by dealer for the last year. Generated on {DateTime.Now}")
                     .AddTabularData(totalRevenueForThePastMonth)
                     .Save();
         }

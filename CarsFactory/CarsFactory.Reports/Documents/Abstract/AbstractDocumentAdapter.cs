@@ -12,7 +12,7 @@ namespace CarsFactory.Reports.Documents.Abstract
 
         public string FileLocation { get; private set; }
 
-        public abstract IDocumentAdapter AddRow(string text);
+        public abstract IDocumentAdapter AddHeader(string text);
 
         public abstract IDocumentAdapter AddTabularData<T>(ICollection<T> tableData);
 

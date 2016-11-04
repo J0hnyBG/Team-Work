@@ -26,7 +26,7 @@ namespace CarsFactory.Reports.Reports
                     .ToList();
 
             document.AddMetadata()
-                    .AddRow($"Top selling manufacturers of all time. Generated on {DateTime.Now}")
+                    .AddHeader($"Top selling manufacturers of all time. Generated on {DateTime.Now}")
                     .AddTabularData(topManufacturers)
                     .Save();
         }

@@ -33,7 +33,7 @@ namespace CarsFactory.Reports.Documents
             this.document.Close();
         }
 
-        public override IDocumentAdapter AddRow(string text)
+        public override IDocumentAdapter AddHeader(string text)
         {
             this.document.Add(new Paragraph(text));
             this.document.Add(Chunk.NEWLINE);
@@ -51,7 +51,10 @@ namespace CarsFactory.Reports.Documents
             }
 
             var modelProperties = typeof(TModel).GetProperties();
-            var table = new PdfPTable(modelProperties.Length);
+            var table = new PdfPTable(modelProperties.Length)
+                        {
+                            WidthPercentage = 100,
+                        };
 
             foreach (var property in modelProperties)
             {

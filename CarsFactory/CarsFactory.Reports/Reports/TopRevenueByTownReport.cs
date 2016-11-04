@@ -26,7 +26,7 @@ namespace CarsFactory.Reports.Reports
                 .ToList();
 
             document.AddMetadata()
-                    .AddRow($"Most orders by town. Generated on {DateTime.Now}")
+                    .AddHeader($"Most orders by town. Generated on {DateTime.Now}")
                     .AddTabularData(topTowns)
                     .Save();
         }

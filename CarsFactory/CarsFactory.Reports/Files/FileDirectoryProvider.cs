@@ -18,7 +18,7 @@ namespace CarsFactory.Reports.Files
 
         public Stream CreateFileStream(string filePath)
         {
-            return new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+            return new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
         }
     }
 }
