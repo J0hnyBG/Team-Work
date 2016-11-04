@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using CarsFactory.Data;
+using CarsFactory.Data.Contracts;
 using CarsFactory.Models.Enums;
 using CarsFactory.Reports.Documents.Contracts;
 using CarsFactory.Reports.Reports.Contracts;
@@ -10,7 +10,7 @@ namespace CarsFactory.Reports.Reports
 {
     public class TotalRevenueInLastYearByDealerReport : IReport
     {
-        public void Generate(IDocumentAdapter document, CarsFactoryDbContext dbContext)
+        public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var lastYear = DateTime.Now.Year - 1;
             var totalRevenueForThePastMonth = (from dealer in dbContext.Dealers
