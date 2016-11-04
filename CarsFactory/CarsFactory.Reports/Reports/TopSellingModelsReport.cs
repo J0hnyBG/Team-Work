@@ -2,6 +2,7 @@
 using System.Linq;
 
 using CarsFactory.Data;
+using CarsFactory.Data.Contracts;
 using CarsFactory.Models.Enums;
 using CarsFactory.Reports.Documents.Contracts;
 using CarsFactory.Reports.Reports.Contracts;
@@ -10,7 +11,7 @@ namespace CarsFactory.Reports.Reports
 {
     public class TopSellingModelsReport : IReport
     {
-        public void Generate(IDocumentAdapter document, CarsFactoryDbContext dbContext)
+        public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var topModels =
                 (from car in
@@ -27,7 +28,7 @@ namespace CarsFactory.Reports.Reports
                     .ToList();
 
             document.AddMetadata()
-                    .AddRow($"Top 20 selling models of all time. Generated on {DateTime.Now}")
+                    .AddHeader($"Top 20 selling models of all time. Generated on {DateTime.Now}")
                     .AddTabularData(topModels)
                     .Save();
         }

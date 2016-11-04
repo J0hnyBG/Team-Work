@@ -88,16 +88,23 @@
   <ItemGroup>
     <Compile Include="Documents\Abstract\AbstractDocumentAdapter.cs" />
     <Compile Include="Documents\Contracts\IDocumentAdapter.cs" />
+    <Compile Include="Documents\IDocumentAdapterFactory.cs" />
     <Compile Include="Documents\PdfDocumentAdapter.cs" />
+    <Compile Include="Files\FileDirectoryProvider.cs" />
+    <Compile Include="Files\Contracts\IFileDirectoryProvider.cs" />
     <Compile Include="GenerateDataFromMongoDb.cs" />
     <Compile Include="GenerateDataFromZipFiles.cs" />
     <Compile Include="GenerateJSONReport.cs" />
     <Compile Include="GenerateXmlReport.cs" />
+    <Compile Include="IReportService.cs" />
     <Compile Include="ReportManagers\Abstract\ReportManager.cs" />
+    <Compile Include="ReportManagers\Contracts\IReportManager.cs" />
     <Compile Include="ReportManagers\PdfReportManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="Reports\Contracts\IReport.cs" />
+    <Compile Include="Reports\DealerSalesReportForLastQuarter.cs" />
+    <Compile Include="Reports\TopRevenueByTownReport.cs" />
     <Compile Include="Reports\TopSellingManufacturersReport.cs" />
     <Compile Include="Reports\TopSellingModelsReport.cs" />
     <Compile Include="Reports\TopTotalRevenueByDealerReport.cs" />

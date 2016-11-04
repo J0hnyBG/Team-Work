@@ -5,14 +5,14 @@ namespace CarsFactory.Reports.Documents.Abstract
 {
     public abstract class AbstractDocumentAdapter : IDocumentAdapter
     {
-        protected AbstractDocumentAdapter(string fileLocation)
+        protected AbstractDocumentAdapter(string fileName)
         {
-            this.FileLocation = fileLocation;
+            this.FileLocation = fileName;
         }
 
         public string FileLocation { get; private set; }
 
-        public abstract IDocumentAdapter AddRow(string text);
+        public abstract IDocumentAdapter AddHeader(string text);
 
         public abstract IDocumentAdapter AddTabularData<T>(ICollection<T> tableData);
 

@@ -6,7 +6,7 @@ namespace CarsFactory.Reports.Documents.Contracts
     {
         string FileLocation { get; }
 
-        IDocumentAdapter AddRow(string text);
+        IDocumentAdapter AddHeader(string text);
 
         IDocumentAdapter AddTabularData<T>(ICollection<T> tableData);
 

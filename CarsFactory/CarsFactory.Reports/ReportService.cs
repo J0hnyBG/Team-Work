@@ -3,35 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using CarsFactory.Data;
-using CarsFactory.Reports.ReportManagers;
-using CarsFactory.Reports.ReportManagers.Abstract;
+using CarsFactory.Data.Contracts;
+using CarsFactory.Reports.ReportManagers.Contracts;
 using CarsFactory.Reports.Reports.Contracts;
 
 namespace CarsFactory.Reports
 {
-    public class ReportService
+    public class ReportService : IReportService
     {
-        public void SaveAllReports(string directoryPath, CarsFactoryDbContext dbContext)
+        private readonly IEnumerable<IReportManager> reportManagers;
+
+        public ReportService(IEnumerable<IReportManager> reportManagers)
+        {
+            if (reportManagers == null)
+            {
+                throw new ArgumentNullException(nameof(reportManagers));
+            }
+
+            this.reportManagers = reportManagers;
+        }
+
+        public void SaveAllReports(string directoryPath, ICarsFactoryDbContext dbContext)
         {
             var allReports = this.GetAllReports();
-            ReportManager manager = new PdfReportManager();
-            manager.Add(allReports);
-            manager.GenerateReports(directoryPath, dbContext);
+
+            foreach (var reportManager in this.reportManagers)
+            {
+                reportManager.Add(allReports);
+                reportManager.GenerateReports(directoryPath, dbContext);
+            }
         }
 
         private IEnumerable<IReport> GetAllReports()
         {
-            //TODO: filter different kinds of reports
-
-            var reports = new List<IReport>();
-            foreach (var typeInfo in typeInfos)
-            {
-                var report = Activator.CreateInstance(typeInfo) as IReport;
-                reports.Add(report);
-            }
-
-            return reports;
+            var assembly = this.GetType()
+                               .GetTypeInfo()
+                               .Assembly;
+            IEnumerable<Type> typeInfos = assembly.DefinedTypes
+                                                  .Where(type => type.ImplementedInterfaces
+                                                                     .Any(inter => inter == typeof(IReport))
+                );
+            var result = typeInfos.Select(typeInfo => Activator.CreateInstance(typeInfo) as IReport)
+                                  .ToList();
+            return result;
         }
     }
 }

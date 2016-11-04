@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarsFactoryDbContext.cs" />
+    <Compile Include="Contracts\ICarsFactoryDbContext.cs" />
     <Compile Include="Migrations\201610281345131_RefreshedInitial.cs" />
     <Compile Include="Migrations\201610281345131_RefreshedInitial.Designer.cs">
       <DependentUpon>201610281345131_RefreshedInitial.cs</DependentUpon>

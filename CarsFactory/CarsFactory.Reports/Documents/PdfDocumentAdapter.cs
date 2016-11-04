@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
+
 using CarsFactory.Reports.Documents.Abstract;
 using CarsFactory.Reports.Documents.Contracts;
 using CarsFactory.Utilities.Extensions;
@@ -13,20 +15,17 @@ namespace CarsFactory.Reports.Documents
     public class PdfDocumentAdapter : AbstractDocumentAdapter
     {
         private const float DefaultCellPadding = 10f;
-        private const float DefaultGrayFill= 0.9f;
+        private const float DefaultGrayFill = 0.9f;
         private const int DefaultColspan = 1;
         private const int CentralAlignment = 1;
 
         private readonly Document document;
 
-        public PdfDocumentAdapter(string fileLocation)
-            : base(fileLocation)
+        public PdfDocumentAdapter(string fileName, Stream stream)
+            : base(fileName)
         {
-            //TODO: Abstract dependencies
-            var fileStream = new FileStream(fileLocation + ".pdf", FileMode.Create, FileAccess.Write, FileShare.Read);
             this.document = new Document();
-
-            PdfWriter.GetInstance(this.document, fileStream);
+            PdfWriter.GetInstance(this.document, stream);
         }
 
         public override void Save()
@@ -34,7 +33,7 @@ namespace CarsFactory.Reports.Documents
             this.document.Close();
         }
 
-        public override IDocumentAdapter AddRow(string text)
+        public override IDocumentAdapter AddHeader(string text)
         {
             this.document.Add(new Paragraph(text));
             this.document.Add(Chunk.NEWLINE);
@@ -52,17 +51,21 @@ namespace CarsFactory.Reports.Documents
             }
 
             var modelProperties = typeof(TModel).GetProperties();
-            var table = new PdfPTable(modelProperties.Length);
+            var table = new PdfPTable(modelProperties.Length)
+                        {
+                            WidthPercentage = 100,
+                        };
 
             foreach (var property in modelProperties)
             {
                 var propertyName = property.Name.DivideWordsByCapitalLetters();
                 var cell = new PdfPCell(new Phrase(propertyName))
-                {
-                    Colspan = DefaultColspan,
-                    HorizontalAlignment = CentralAlignment,
-                    GrayFill = DefaultGrayFill
-                };
+                           {
+                               Colspan = DefaultColspan,
+                               HorizontalAlignment = CentralAlignment,
+                               GrayFill = DefaultGrayFill
+                           };
+
                 table.AddCell(cell);
             }
 
@@ -81,7 +84,7 @@ namespace CarsFactory.Reports.Documents
                     table.AddCell(cell);
                 }
             }
-           
+
             this.document.Add(table);
 
             return this;

@@ -2,6 +2,7 @@
 using System.Linq;
 
 using CarsFactory.Data;
+using CarsFactory.Data.Contracts;
 using CarsFactory.Models.Enums;
 using CarsFactory.Reports.Documents.Contracts;
 using CarsFactory.Reports.Reports.Contracts;
@@ -10,7 +11,7 @@ namespace CarsFactory.Reports.Reports
 {
     public class TopTotalRevenueByDealerReport : IReport
     {
-        public void Generate(IDocumentAdapter document, CarsFactoryDbContext dbContext)
+        public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var totalRevenueByDealers = (from dealer in dbContext.Dealers
                                          let totalRevenue =
@@ -37,7 +38,7 @@ namespace CarsFactory.Reports.Reports
                 .ToList();
 
             document.AddMetadata()
-                    .AddRow($"Top 10 total revenue by dealer for all time. Generated on {DateTime.Now}")
+                    .AddHeader($"Top 10 total revenue by dealer for all time. Generated on {DateTime.Now}")
                     .AddTabularData(totalRevenueByDealers)
                     .Save();
         }
