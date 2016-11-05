@@ -3,6 +3,7 @@ using CarsFactory.Models.Enums;
 using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
+using CarsFactory.Utilities;
 
 namespace CarsFactory.Reports.Reports
 {
@@ -52,6 +53,9 @@ namespace CarsFactory.Reports.Reports
                     {
                         writer.Write(JsonConvert.SerializeObject(order, Formatting.Indented));
                     }
+
+                    MySQLConnect dbConn = new MySQLConnect();
+                    dbConn.Insert(JsonConvert.SerializeObject(order, Formatting.Indented));
                 }
             }
         }
