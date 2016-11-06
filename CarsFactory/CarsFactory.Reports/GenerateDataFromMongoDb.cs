@@ -3,15 +3,19 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using CarsFactory.Data;
-using CarsFactory.MongoDb.Data;
+using System.Collections.Generic;
+using CarsFactory.Data.Contracts;
+using CarsFactory.MongoDb.Data.Contracts;
+using CarsFactory.Reports.Contracts;
+using CarsFactory.Models;
 
 namespace CarsFactory.Reports
 {
-    public class GenerateDataFromMongoDb
+    public class GenerateDataFromMongoDb : IGenerateDataFromMongoDb
     {
-        public static async Task GetMongoData()
+        public async Task GetMongoData(IMongoDbRepository repo, IMSSqlRepository mssqlRepo, ICarsFactoryDbContext ctx)
         {
-            var repo = new MongoDbRepository();
+            //var repo = new MongoDbRepository();
 
             var towns = (await repo.GetTownsData()).ToList();
             var platforms = (await repo.GetPlatformsData()).ToList();
@@ -19,10 +23,25 @@ namespace CarsFactory.Reports
             var models = (await repo.GetModelsData()).ToList();
             //var manufacturers = (await repo.GetManufacturersData()).ToList();
             var engines = (await repo.GetEnginesData()).ToList();
+
+            mssqlRepo.ExtractTowns(towns, ctx);
+            mssqlRepo.ExtractPlatforms(platforms, ctx);
+            mssqlRepo.ExtractEngines(engines, ctx);
+            mssqlRepo.ExtractModels(models, ctx);
+            using (ctx)
+            {
+                this.SaveTownsInMSSqlDb(ctx, towns);
+                this.SavePlatformsInMSSqlDb(ctx, platforms);
+                this.SaveEnginesInMSSqlDb(ctx, engines);
+                this.SaveModelsInMSSqlDb(ctx, models);
+
+                await ctx.SaveChangesAsync();
+            }
+
             //var dealers = (await repo.GetDealersData()).ToList();
             //var cars = (await repo.GetCarsData()).ToList();
 
-            var ctx = new CarsFactoryDbContext();
+            //var ctx = new CarsFactoryDbContext();
 
             //Console.WriteLine(cars.Count);
             //Console.WriteLine(models.Count);
@@ -32,7 +51,41 @@ namespace CarsFactory.Reports
             //Console.WriteLine(engines.Count);
             //Console.WriteLine(dealers.Count);
             Console.WriteLine(towns.Count);
+            //foreach (var order in orders)
+            //{
+            //    if (!ctx.Orders.Any(c => c.Id == order.Id))
+            //    {
+            //        ctx.Orders.Add(order);
+            //    }
+            //}
 
+            //foreach (var manufacturer in manufacturers)
+            //{
+            //    if (!ctx.Manufacturers.Any(c => c.Id == manufacturer.Id))
+            //    {
+            //        ctx.Manufacturers.Add(manufacturer);
+            //    }
+            //}
+
+            //foreach (var dealer in dealers)
+            //{
+            //    if (!ctx.Dealers.Any(d => d.Id == dealer.Id))
+            //    {
+            //        ctx.Dealers.Add(dealer);
+            //    }
+            //}
+
+            //foreach (var car in cars)
+            //{
+            //    if (!ctx.Cars.Any(c => c.Id == car.Id))
+            //    {
+            //        ctx.Cars.Add(car);
+            //    }
+            //}
+        }
+
+        private void SaveTownsInMSSqlDb(ICarsFactoryDbContext ctx, IList<Town> towns)
+        {
             using (ctx)
             {
                 foreach (var town in towns)
@@ -42,6 +95,14 @@ namespace CarsFactory.Reports
                         ctx.Towns.Add(town);
                     }
                 }
+                ctx.SaveChanges();
+            }
+        }
+
+        private void SavePlatformsInMSSqlDb(ICarsFactoryDbContext ctx, IList<Platform> platforms)
+        {
+            using (ctx)
+            {
 
                 foreach (var platform in platforms)
                 {
@@ -50,23 +111,14 @@ namespace CarsFactory.Reports
                         ctx.Platforms.Add(platform);
                     }
                 }
+                ctx.SaveChanges();
+            }
+        }
 
-                //foreach (var order in orders)
-                //{
-                //    if (!ctx.Orders.Any(c => c.Id == order.Id))
-                //    {
-                //        ctx.Orders.Add(order);
-                //    }
-                //}
-
-                //foreach (var manufacturer in manufacturers)
-                //{
-                //    if (!ctx.Manufacturers.Any(c => c.Id == manufacturer.Id))
-                //    {
-                //        ctx.Manufacturers.Add(manufacturer);
-                //    }
-                //}
-
+        private void SaveEnginesInMSSqlDb(ICarsFactoryDbContext ctx, IList<Engine> engines)
+        {
+            using (ctx)
+            {
                 foreach (var engine in engines)
                 {
                     if (!ctx.Engines.Any(c => c.Id == engine.Id))
@@ -74,7 +126,15 @@ namespace CarsFactory.Reports
                         ctx.Engines.Add(engine);
                     }
                 }
+                ctx.SaveChanges();
+                ctx.Dispose();
+            }
+        }
 
+        private void SaveModelsInMSSqlDb(ICarsFactoryDbContext ctx, IList<Model> models)
+        {
+            using (ctx)
+            {
                 foreach (var model in models)
                 {
                     if (!ctx.Models.Any(c => c.Id == model.Id))
@@ -82,23 +142,6 @@ namespace CarsFactory.Reports
                         ctx.Models.Add(model);
                     }
                 }
-
-                //foreach (var dealer in dealers)
-                //{
-                //    if (!ctx.Dealers.Any(d => d.Id == dealer.Id))
-                //    {
-                //        ctx.Dealers.Add(dealer);
-                //    }
-                //}
-
-                //foreach (var car in cars)
-                //{
-                //    if (!ctx.Cars.Any(c => c.Id == car.Id))
-                //    {
-                //        ctx.Cars.Add(car);
-                //    }
-                //}
-
                 ctx.SaveChanges();
             }
         }

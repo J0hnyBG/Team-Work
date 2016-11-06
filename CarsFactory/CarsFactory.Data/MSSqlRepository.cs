@@ -1,4 +1,5 @@
-﻿using CarsFactory.Models;
+﻿using CarsFactory.Data.Contracts;
+using CarsFactory.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -10,7 +11,7 @@ namespace CarsFactory.Data
     /// <summary>
     /// Microsoft's SQL repository
     /// </summary>
-    public class MSSqlRepository
+    public class MSSqlRepository : IMSSqlRepository
     {
         public async Task CreateDb()
         {
@@ -21,14 +22,10 @@ namespace CarsFactory.Data
             }
         }
 
-        // TODO: Create DtoObjects
-
-        public void ExtractTownsFromZip(ICollection<Town> towns)
+        public void ExtractTowns(ICollection<Town> towns, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
                 using (ctx)
                 {
                     foreach (var town in towns)
@@ -49,12 +46,10 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractPlatformsFromZip(ICollection<Platform> platforms)
+        public void ExtractPlatforms(ICollection<Platform> platforms, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
                 using (ctx)
                 {
                     foreach (var platform in platforms)
@@ -75,12 +70,10 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractEnginesFromZip(ICollection<Engine> engines)
+        public void ExtractEngines(ICollection<Engine> engines, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
                 using (ctx)
                 {
                     foreach (var engine in engines)
@@ -101,12 +94,10 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractModelsFromZip(ICollection<Model> models)
+        public void ExtractModels(ICollection<Model> models, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
                 using (ctx)
                 {
                     foreach (var model in models)
@@ -127,12 +118,10 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractCarsFromZip(ICollection<Car> cars)
+        public void ExtractCars(ICollection<Car> cars, ICarsFactoryDbContext ctx)
         {
-            //try
-            //{
-                var ctx = new CarsFactoryDbContext();
-
+            try
+            {
                 using (ctx)
                 {
                     foreach (var car in cars)
@@ -146,11 +135,11 @@ namespace CarsFactory.Data
                     ctx.SaveChanges();
                 }
 
-            //}
-            //catch (DbUpdateException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
