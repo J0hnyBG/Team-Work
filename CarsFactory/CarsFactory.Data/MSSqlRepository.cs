@@ -50,7 +50,7 @@ namespace CarsFactory.Data
         {
             try
             {
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var platform in platforms)
                     {
@@ -74,7 +74,7 @@ namespace CarsFactory.Data
         {
             try
             {
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var engine in engines)
                     {
@@ -98,7 +98,7 @@ namespace CarsFactory.Data
         {
             try
             {
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var model in models)
                     {
@@ -122,7 +122,7 @@ namespace CarsFactory.Data
         {
             try
             {
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var car in cars)
                     {

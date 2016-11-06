@@ -39,14 +39,14 @@ namespace CarsFactory.Client
             var zipFiles = kernel.Get<IGenerateDataFromZipFiles>();
             var mongoData = kernel.Get<IGenerateDataFromMongoDb>();
             zipFiles.GetDataFromZip(mssqlRepo, dbContext);
-            //// Write data in MSSQL Database from MongoDb
+            // Write data in MSSQL Database from MongoDb
             Task.Run(async () =>
             {
                 await mongoData.GetMongoData(repo, mssqlRepo, dbContext);
             }).Wait();
 
             //// Task 3         
-            GenerateXmlReport.CreateReport();
+            //GenerateXmlReport.CreateReport();
         }
     }
 }

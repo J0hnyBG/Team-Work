@@ -15,8 +15,6 @@ namespace CarsFactory.Reports
     {
         public async Task GetMongoData(IMongoDbRepository repo, IMSSqlRepository mssqlRepo, ICarsFactoryDbContext ctx)
         {
-            //var repo = new MongoDbRepository();
-
             var towns = (await repo.GetTownsData()).ToList();
             var platforms = (await repo.GetPlatformsData()).ToList();
             //var orders = (await repo.GetOrdersData()).ToList();
@@ -24,11 +22,8 @@ namespace CarsFactory.Reports
             //var manufacturers = (await repo.GetManufacturersData()).ToList();
             var engines = (await repo.GetEnginesData()).ToList();
 
-            mssqlRepo.ExtractTowns(towns, ctx);
-            mssqlRepo.ExtractPlatforms(platforms, ctx);
-            mssqlRepo.ExtractEngines(engines, ctx);
-            mssqlRepo.ExtractModels(models, ctx);
-            using (ctx)
+            
+            using (ctx = new CarsFactoryDbContext())
             {
                 this.SaveTownsInMSSqlDb(ctx, towns);
                 this.SavePlatformsInMSSqlDb(ctx, platforms);
@@ -44,11 +39,11 @@ namespace CarsFactory.Reports
             //var ctx = new CarsFactoryDbContext();
 
             //Console.WriteLine(cars.Count);
-            //Console.WriteLine(models.Count);
+            Console.WriteLine(models.Count);
             //Console.WriteLine(manufacturers.Count);
             //Console.WriteLine(orders.Count);
-            //Console.WriteLine(platforms.Count);
-            //Console.WriteLine(engines.Count);
+            Console.WriteLine(platforms.Count);
+            Console.WriteLine(engines.Count);
             //Console.WriteLine(dealers.Count);
             Console.WriteLine(towns.Count);
             //foreach (var order in orders)
@@ -86,7 +81,7 @@ namespace CarsFactory.Reports
 
         private void SaveTownsInMSSqlDb(ICarsFactoryDbContext ctx, IList<Town> towns)
         {
-            using (ctx)
+            using (ctx = new CarsFactoryDbContext())
             {
                 foreach (var town in towns)
                 {
@@ -101,7 +96,7 @@ namespace CarsFactory.Reports
 
         private void SavePlatformsInMSSqlDb(ICarsFactoryDbContext ctx, IList<Platform> platforms)
         {
-            using (ctx)
+            using (ctx = new CarsFactoryDbContext())
             {
 
                 foreach (var platform in platforms)
@@ -117,7 +112,7 @@ namespace CarsFactory.Reports
 
         private void SaveEnginesInMSSqlDb(ICarsFactoryDbContext ctx, IList<Engine> engines)
         {
-            using (ctx)
+            using (ctx = new CarsFactoryDbContext())
             {
                 foreach (var engine in engines)
                 {
@@ -133,7 +128,7 @@ namespace CarsFactory.Reports
 
         private void SaveModelsInMSSqlDb(ICarsFactoryDbContext ctx, IList<Model> models)
         {
-            using (ctx)
+            using (ctx = new CarsFactoryDbContext())
             {
                 foreach (var model in models)
                 {
