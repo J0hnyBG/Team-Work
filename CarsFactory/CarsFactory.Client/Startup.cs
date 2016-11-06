@@ -42,7 +42,7 @@ namespace CarsFactory.Client
             // Write data in MSSQL Database from MongoDb
             Task.Run(async () =>
             {
-                await mongoData.GetMongoData(repo, mssqlRepo, dbContext);
+                await mongoData.SaveAllMongoData(repo, mssqlRepo, dbContext);
             }).Wait();
 
             //// Task 3         

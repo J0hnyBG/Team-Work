@@ -26,7 +26,7 @@ namespace CarsFactory.Data
         {
             try
             {
-                using (ctx)
+                using (ctx= new CarsFactoryDbContext())
                 {
                     foreach (var town in towns)
                     {
@@ -57,6 +57,54 @@ namespace CarsFactory.Data
                         if (!ctx.Platforms.Any(p => p.Id == platform.Id))
                         {
                             ctx.Platforms.Add(platform);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractOrders(ICollection<Order> orders, ICarsFactoryDbContext ctx)
+        {
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
+                {
+                    foreach (var order in orders)
+                    {
+                        if (!ctx.Orders.Any(p => p.Id == order.Id))
+                        {
+                            ctx.Orders.Add(order);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractManufacturers(ICollection<Manufacturer> manufacturers, ICarsFactoryDbContext ctx)
+        {
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
+                {
+                    foreach (var manufacturer in manufacturers)
+                    {
+                        if (!ctx.Manufacturers.Any(e => e.Id == manufacturer.Id))
+                        {
+                            ctx.Manufacturers.Add(manufacturer);
                         }
                     }
 
@@ -105,6 +153,30 @@ namespace CarsFactory.Data
                         if (!ctx.Models.Any(m => m.Id == model.Id))
                         {
                             ctx.Models.Add(model);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractDealers(ICollection<Dealer> dealers, ICarsFactoryDbContext ctx)
+        {
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
+                {
+                    foreach (var dealer in dealers)
+                    {
+                        if (!ctx.Dealers.Any(m => m.Id == dealer.Id))
+                        {
+                            ctx.Dealers.Add(dealer);
                         }
                     }
 

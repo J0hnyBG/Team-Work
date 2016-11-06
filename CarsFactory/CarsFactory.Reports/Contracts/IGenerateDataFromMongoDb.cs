@@ -7,6 +7,6 @@ namespace CarsFactory.Reports.Contracts
 {
     public interface IGenerateDataFromMongoDb
     {
-        Task GetMongoData(IMongoDbRepository repo, IMSSqlRepository mssqlRepo, ICarsFactoryDbContext ctx);
+        Task SaveAllMongoData(IMongoDbRepository repo, IMSSqlRepository mssqlRepo, ICarsFactoryDbContext ctx);
     }
 }
