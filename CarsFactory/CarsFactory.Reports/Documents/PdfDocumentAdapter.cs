@@ -18,6 +18,8 @@ namespace CarsFactory.Reports.Documents
         private const float DefaultGrayFill = 0.9f;
         private const int DefaultColspan = 1;
         private const int CentralAlignment = 1;
+        private const float FullWidthPercentage = 100f;
+        private const string DataNotAvaliableSymbol = "N/A";
 
         private readonly Document document;
 
@@ -53,7 +55,7 @@ namespace CarsFactory.Reports.Documents
             var modelProperties = typeof(TModel).GetProperties();
             var table = new PdfPTable(modelProperties.Length)
                         {
-                            WidthPercentage = 100,
+                            WidthPercentage = FullWidthPercentage,
                         };
 
             foreach (var property in modelProperties)
@@ -74,7 +76,7 @@ namespace CarsFactory.Reports.Documents
                 foreach (var property in modelProperties)
                 {
                     var value = property.GetValue(data);
-                    var cellValue = (value ?? "N/A").ToString();
+                    var cellValue = (value ?? DataNotAvaliableSymbol).ToString();
 
                     var cell = new PdfPCell(new Phrase(cellValue))
                                {

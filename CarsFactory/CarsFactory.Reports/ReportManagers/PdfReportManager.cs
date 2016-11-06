@@ -9,6 +9,8 @@ namespace CarsFactory.Reports.ReportManagers
 {
     public class PdfReportManager : ReportManager
     {
+        private const string FileExtension = ".pdf";
+
         public PdfReportManager(IFileDirectoryProvider fileDirectoryProvider, IDocumentAdapterFactory documentAdapterFactory) 
             : base(fileDirectoryProvider, documentAdapterFactory)
         {
@@ -21,7 +23,12 @@ namespace CarsFactory.Reports.ReportManagers
 
         protected override string AppendFileExtension(string fileName)
         {
-            return fileName + ".pdf";
+            if (fileName.EndsWith(FileExtension))
+            {
+                return fileName;
+            }
+
+            return fileName + FileExtension;
         }
     }
 }

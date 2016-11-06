@@ -27,10 +27,14 @@ namespace CarsFactory.Reports
         {
             var allReports = this.GetAllReports();
 
-            foreach (var reportManager in this.reportManagers)
+            var enumerableReports = allReports as IReport[] ?? allReports.ToArray();
+            using (dbContext)
             {
-                reportManager.Add(allReports);
-                reportManager.GenerateReports(directoryPath, dbContext);
+                foreach (var reportManager in this.reportManagers)
+                {
+                    reportManager.Add(enumerableReports);
+                    reportManager.GenerateReports(directoryPath, dbContext);
+                }
             }
         }
 

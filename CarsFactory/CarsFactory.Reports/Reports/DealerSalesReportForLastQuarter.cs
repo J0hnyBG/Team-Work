@@ -40,9 +40,9 @@ namespace CarsFactory.Reports.Reports
 
             foreach (var dealer in dealerData)
             {
-                var deal = new { Dealer = dealer.Name };
-                var list = new[] { deal }.ToList();
-                document.AddTabularData(list);
+                var deal = new { Dealer = dealer.Name + ", " + dealer.Town };
+                var dealerTableData = new[] { deal }.ToList();
+                document.AddTabularData(dealerTableData);
 
                 if (dealer.Cars.Count > 0)
                 {

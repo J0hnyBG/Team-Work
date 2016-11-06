@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using CarsFactory.Data;
 using CarsFactory.Data.Contracts;
 using CarsFactory.Models.Enums;
 using CarsFactory.Reports.Documents.Contracts;
