@@ -100,7 +100,7 @@
     <Compile Include="Files\Contracts\IFileDirectoryProvider.cs" />
     <Compile Include="GenerateDataFromMongoDb.cs" />
     <Compile Include="GenerateDataFromZipFiles.cs" />
-    <Compile Include="GenerateJSONReport.cs" />
+    <Compile Include="GenerateJsonReport.cs" />
     <Compile Include="GenerateXmlReport.cs" />
     <Compile Include="IReportService.cs" />
     <Compile Include="ReportManagers\Abstract\ReportManager.cs" />

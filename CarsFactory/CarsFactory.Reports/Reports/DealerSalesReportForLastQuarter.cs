@@ -10,9 +10,13 @@ namespace CarsFactory.Reports.Reports
 {
     public class DealerSalesReportForLastQuarter : IReport
     {
+        /// <summary>
+        /// Generates a new DealerSalesReportForLastQuarter.
+        /// </summary>
         public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var pastDate = DateTime.Now.AddMonths(-3);
+            Console.WriteLine(dbContext.Orders.First().TotalPrice);
 
             var dealerData = (from dealer in dbContext.Dealers
                               let cars = dealer.Cars.Where(car => car.OrderId != null

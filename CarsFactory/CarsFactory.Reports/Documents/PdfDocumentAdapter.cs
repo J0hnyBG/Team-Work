@@ -12,6 +12,9 @@ using CarsFactory.Utilities.Extensions;
 
 namespace CarsFactory.Reports.Documents
 {
+    /// <summary>
+    /// Provides methods for creating an iTextSharp.text.pdf document.
+    /// </summary>
     public class PdfDocumentAdapter : AbstractDocumentAdapter
     {
         private const float DefaultCellPadding = 10f;
@@ -30,11 +33,19 @@ namespace CarsFactory.Reports.Documents
             PdfWriter.GetInstance(this.document, stream);
         }
 
+        /// <summary>
+        /// Saves the document.
+        /// </summary>
         public override void Save()
         {
             this.document.Close();
         }
 
+        /// <summary>
+        /// Adds a header to the document with the specified text.
+        /// </summary>
+        /// <param name="text">The text content.</param>
+        /// <returns>Self</returns>
         public override IDocumentAdapter AddHeader(string text)
         {
             this.document.Add(new Paragraph(text));
@@ -45,6 +56,12 @@ namespace CarsFactory.Reports.Documents
             return this;
         }
 
+        /// <summary>
+        /// Adds a table to the document with the specified contents.
+        /// </summary>
+        /// <param name="tableData">The data to insert.</param>
+        /// <returns>Self</returns>
+        /// <remarks>The method relies on the data's property names for the naming of table headers.</remarks>
         public override IDocumentAdapter AddTabularData<TModel>(ICollection<TModel> tableData)
         {
             if (tableData == null)
@@ -92,12 +109,20 @@ namespace CarsFactory.Reports.Documents
             return this;
         }
 
+        /// <summary>
+        /// Begins a new page in the current document.
+        /// </summary>
+        /// <returns>Self</returns>
         public override IDocumentAdapter NewPage()
         {
             this.document.NewPage();
             return this;
         }
 
+        /// <summary>
+        /// Adds metadata and opens the document.
+        /// </summary>
+        /// <returns>Self</returns>
         public override IDocumentAdapter AddMetadata()
         {
             this.document.AddTitle("Reports");

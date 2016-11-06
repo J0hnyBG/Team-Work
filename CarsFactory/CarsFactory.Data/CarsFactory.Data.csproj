@@ -82,17 +82,13 @@
   <ItemGroup>
     <Compile Include="CarsFactoryDbContext.cs" />
     <Compile Include="Contracts\ICarsFactoryDbContext.cs" />
-    <Compile Include="Contracts\IMSSqlRepository.cs" />
-    <Compile Include="Migrations\201610281345131_RefreshedInitial.cs" />
-    <Compile Include="Migrations\201610281345131_RefreshedInitial.Designer.cs">
-      <DependentUpon>201610281345131_RefreshedInitial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611021223453_ManufacturerLengthChanges.cs" />
-    <Compile Include="Migrations\201611021223453_ManufacturerLengthChanges.Designer.cs">
-      <DependentUpon>201611021223453_ManufacturerLengthChanges.cs</DependentUpon>
+    <Compile Include="Contracts\IMsSqlRepository.cs" />
+    <Compile Include="Migrations\201611061841348_Initial.cs" />
+    <Compile Include="Migrations\201611061841348_Initial.Designer.cs">
+      <DependentUpon>201611061841348_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MSSqlRepository.cs" />
+    <Compile Include="MsSqlRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,11 +102,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610281345131_RefreshedInitial.resx">
-      <DependentUpon>201610281345131_RefreshedInitial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611021223453_ManufacturerLengthChanges.resx">
-      <DependentUpon>201611021223453_ManufacturerLengthChanges.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611061841348_Initial.resx">
+      <DependentUpon>201611061841348_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

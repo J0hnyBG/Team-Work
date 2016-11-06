@@ -1,22 +1,24 @@
-﻿using CarsFactory.Data;
-using CarsFactory.Models.Enums;
-using Newtonsoft.Json;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+
+using CarsFactory.Data;
+using CarsFactory.Models.Enums;
 using CarsFactory.Utilities;
 
-namespace CarsFactory.Reports.Reports
+using Newtonsoft.Json;
+
+namespace CarsFactory.Reports
 {
     /// <summary>
     /// Class to generate JSON reports
     /// </summary>
-    public static class GenerateJSONReport
+    public static class GenerateJsonReport
     {
         /// <summary>
         /// Generate a JSON file for each order
         /// Filename is the Id of order
         /// </summary>
-        public static void GenerateJSON()
+        public static void GenerateJson()
         {
             using (CarsFactoryDbContext ctx = new CarsFactoryDbContext())
             {
@@ -54,7 +56,7 @@ namespace CarsFactory.Reports.Reports
                         writer.Write(JsonConvert.SerializeObject(order, Formatting.Indented));
                     }
 
-                    MySQLConnect dbConn = new MySQLConnect();
+                    MySqlConnect dbConn = new MySqlConnect();
                     dbConn.Insert(JsonConvert.SerializeObject(order, Formatting.Indented));
                 }
             }

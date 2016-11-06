@@ -10,6 +10,9 @@ namespace CarsFactory.Reports.Reports
 {
     public class TopTotalRevenueByDealerReport : IReport
     {
+        /// <summary>
+        /// Generates a new TopTotalRevenueByDealerReport.
+        /// </summary>
         public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var totalRevenueByDealers = (from dealer in dbContext.Dealers

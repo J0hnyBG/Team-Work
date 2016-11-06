@@ -3,7 +3,7 @@ using System;
 
 namespace CarsFactory.Utilities
 {
-    public class MySQLConnect
+    public class MySqlConnect
     {
         private MySqlConnection connection;
         private string server;
@@ -12,21 +12,21 @@ namespace CarsFactory.Utilities
         private string password;
 
         //Constructor
-        public MySQLConnect()
+        public MySqlConnect()
         {
-            Initialize();
+            this.Initialize();
         }
 
         //Initialize database
         private void Initialize()
         {
-            server = "localhost";
-            database = "cars_factory_json_reports";
-            uid = "root";
-            password = "vremennaparola";
+            this.server = "localhost";
+            this.database = "cars_factory_json_reports";
+            this.uid = "root";
+            this.password = "vremennaparola";
 
             // Open connection to MySQL server to create db if there is none
-            string connStr = $"server={server};user={uid};port=3306;password={password};";
+            string connStr = $"server={this.server};user={this.uid};port=3306;password={this.password};";
             MySqlConnection conn = new MySqlConnection(connStr);
             MySqlCommand cmd;
             string s0;
@@ -34,8 +34,8 @@ namespace CarsFactory.Utilities
             try
             {
                 conn.Open();
-                s0 = $"CREATE DATABASE IF NOT EXISTS `{database}`;"// Create the database with table and columns                   
-                    + $"CREATE TABLE IF NOT EXISTS `{database}`.`reports` (`id` INT NOT NULL AUTO_INCREMENT, `report` JSON NOT NULL, PRIMARY KEY (`id`));";
+                s0 = $"CREATE DATABASE IF NOT EXISTS `{this.database}`;"// Create the database with table and columns                   
+                    + $"CREATE TABLE IF NOT EXISTS `{this.database}`.`reports` (`id` INT NOT NULL AUTO_INCREMENT, `report` JSON NOT NULL, PRIMARY KEY (`id`));";
                 cmd = new MySqlCommand(s0, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -45,9 +45,9 @@ namespace CarsFactory.Utilities
                 Console.WriteLine(e.ToString());
             }
             
-            string connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "password=" + password + ";";
+            string connectionString = "SERVER=" + this.server + ";" + "DATABASE=" + this.database + ";" + "UID=" + this.uid + ";" + "password=" + this.password + ";";
             // create a new connection to the database with name etc. that we will use in all methods
-            connection = new MySqlConnection(connectionString);
+            this.connection = new MySqlConnection(connectionString);
         }
 
         //open connection to database
@@ -55,7 +55,7 @@ namespace CarsFactory.Utilities
         {
             try
             {
-                connection.Open();
+                this.connection.Open();
                 return true;
             }
             catch (MySqlException ex)
@@ -84,7 +84,7 @@ namespace CarsFactory.Utilities
         {
             try
             {
-                connection.Close();
+                this.connection.Close();
                 return true;
             }
             catch (MySqlException ex)
@@ -102,7 +102,7 @@ namespace CarsFactory.Utilities
             if (this.OpenConnection() == true)
             {
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = connection.CreateCommand();
+                MySqlCommand cmd = this.connection.CreateCommand();
                 cmd.CommandText = "INSERT INTO reports (report) VALUES(?report)";
                 cmd.Parameters.Add("?report", MySqlDbType.JSON).Value = dataToInsert;
 

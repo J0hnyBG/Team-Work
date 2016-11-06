@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using CarsFactory.DtoModels;
-using System.Linq;
 
 namespace CarsFactory.SQLite.Data
 {
-    public class SQLiteRepository
+    public class SqLiteRepository
     {
         public IList<TownInfoDto> GetTownsData()
         {

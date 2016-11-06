@@ -11,7 +11,7 @@ namespace CarsFactory.Reports
 {
     public class GenerateDataFromMongoDb : IGenerateDataFromMongoDb
     {
-        public async Task SaveAllMongoData(IMongoDbRepository repo, IMSSqlRepository mssqlRepo, ICarsFactoryDbContext ctx)
+        public async Task SaveAllMongoData(IMongoDbRepository repo, IMsSqlRepository mssqlRepo, ICarsFactoryDbContext ctx)
         {
             var towns = (await repo.GetTownsData()).ToList();
             var platforms = (await repo.GetPlatformsData()).ToList();

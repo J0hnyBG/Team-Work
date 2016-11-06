@@ -11,7 +11,7 @@ namespace CarsFactory.Data
     /// <summary>
     /// Microsoft's SQL repository
     /// </summary>
-    public class MSSqlRepository : IMSSqlRepository
+    public class MsSqlRepository : IMsSqlRepository
     {
         public async Task CreateDb()
         {

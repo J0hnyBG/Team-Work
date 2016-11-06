@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CarsFactory.Data.Contracts
 {
-    public interface IMSSqlRepository
+    public interface IMsSqlRepository
     {
         void ExtractTowns(ICollection<Town> towns, ICarsFactoryDbContext ctx);
 

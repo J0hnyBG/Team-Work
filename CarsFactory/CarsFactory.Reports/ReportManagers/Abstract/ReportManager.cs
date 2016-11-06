@@ -11,6 +11,9 @@ using CarsFactory.Reports.ReportManagers.Contracts;
 
 namespace CarsFactory.Reports.ReportManagers.Abstract
 {
+    /// <summary>
+    /// Provides methods for the management and generation of reports.
+    /// </summary>
     public abstract class ReportManager : IReportManager
     {
         private readonly IFileDirectoryProvider fileDirectoryProvider;
@@ -32,10 +35,18 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
             this.fileDirectoryProvider = fileDirectoryProvider;
         }
 
-        protected IDocumentAdapterFactory DocumentAdapterAdapterFactory { get { return this.documentAdapterFactory; } }
+        protected IDocumentAdapterFactory DocumentAdapterAdapterFactory
+        {
+            get { return this.documentAdapterFactory; }
+        }
 
         protected ICollection<IReport> Reports { get; private set; }
 
+        /// <summary>
+        /// Generates each of the contained reports to the specified directory.
+        /// </summary>
+        /// <param name="directoryLocation">The directory to save the reports to.</param>
+        /// <param name="dbContext">The datasource,</param>
         public void GenerateReports(string directoryLocation, ICarsFactoryDbContext dbContext)
         {
             if (this.Reports == null || this.Reports.Count == 0)
@@ -62,6 +73,10 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
             }
         }
 
+        /// <summary>
+        /// Adds an IReport to be generated.
+        /// </summary>
+        /// <param name="report">IReport to be added.</param>
         public void Add(IReport report)
         {
             if (report == null)
@@ -77,6 +92,10 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
             this.Reports.Add(report);
         }
 
+        /// <summary>
+        /// Adds a collection of IReports to be generated.
+        /// </summary>
+        /// <param name="reports">IReports to be added.</param>
         public void Add(IEnumerable<IReport> reports)
         {
             if (reports == null)

@@ -9,6 +9,9 @@ using CarsFactory.Reports.Reports.Contracts;
 
 namespace CarsFactory.Reports
 {
+    /// <summary>
+    /// Provides method for the generation of reports.
+    /// </summary>
     public class ReportService : IReportService
     {
         private readonly IEnumerable<IReportManager> reportManagers;
@@ -23,6 +26,11 @@ namespace CarsFactory.Reports
             this.reportManagers = reportManagers;
         }
 
+        /// <summary>
+        /// Saves all IReports in the assembly in the specified directory.
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <param name="dbContext"></param>
         public void SaveAllReports(string directoryPath, ICarsFactoryDbContext dbContext)
         {
             var allReports = this.GetAllReports();
@@ -38,6 +46,10 @@ namespace CarsFactory.Reports
             }
         }
 
+        /// <summary>
+        /// Gets an instance of each implemetation of IReport.
+        /// </summary>
+        /// <returns>A collection of instantiated IReports.</returns>
         private IEnumerable<IReport> GetAllReports()
         {
             var assembly = this.GetType()

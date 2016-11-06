@@ -22,7 +22,7 @@ namespace CarsFactory.Client
             kernel.Load(Assembly.GetExecutingAssembly());
 
             var dbContext = kernel.Get<ICarsFactoryDbContext>();
-            //// Problem 2
+            // Problem 2
             var reportService = kernel.Get<IReportService>();
             reportService.SaveAllReports(@"..\..\..\Output\", dbContext);
 
@@ -35,7 +35,7 @@ namespace CarsFactory.Client
 
             // Problem 1 - Write data in SQL Database from Zip files.
             var repo = kernel.Get<IMongoDbRepository>();
-            var mssqlRepo = kernel.Get<IMSSqlRepository>();
+            var mssqlRepo = kernel.Get<IMsSqlRepository>();
             var zipFiles = kernel.Get<IGenerateDataFromZipFiles>();
             var mongoData = kernel.Get<IGenerateDataFromMongoDb>();
             var filePath = @"..\..\..\Input\SampleData.zip";

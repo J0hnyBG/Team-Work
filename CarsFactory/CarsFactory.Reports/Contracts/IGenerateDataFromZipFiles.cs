@@ -4,6 +4,6 @@ namespace CarsFactory.Reports.Contracts
 {
     public interface IGenerateDataFromZipFiles
     {
-        void SaveAllDataFromZip(IMSSqlRepository repo, ICarsFactoryDbContext ctx, string filePath);
+        void SaveAllDataFromZip(IMsSqlRepository repo, ICarsFactoryDbContext ctx, string filePath);
     }
 }
