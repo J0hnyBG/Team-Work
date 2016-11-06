@@ -21,7 +21,7 @@
 #   Car Factory Database
 * A car dealership factory which holds information about its cars, models, dealers, manufacturers, dealer towns in MongoDB database consisting of 8 tables.
 * See examples for the following schema for car dealership factory:
-## Problem 1.
+# Problem 1.
 #### Cars
 
 | Id | ModelId | DealerId | OrderId | Base Price | Year |
