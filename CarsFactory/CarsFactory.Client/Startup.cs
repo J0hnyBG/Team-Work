@@ -38,7 +38,8 @@ namespace CarsFactory.Client
             var mssqlRepo = kernel.Get<IMSSqlRepository>();
             var zipFiles = kernel.Get<IGenerateDataFromZipFiles>();
             var mongoData = kernel.Get<IGenerateDataFromMongoDb>();
-            zipFiles.GetDataFromZip(mssqlRepo, dbContext);
+            var filePath = @"..\..\..\Input\SampleData.zip";
+            zipFiles.SaveAllDataFromZip(mssqlRepo, dbContext, filePath);
             // Write data in MSSQL Database from MongoDb
             Task.Run(async () =>
             {

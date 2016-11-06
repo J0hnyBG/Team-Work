@@ -11,9 +11,8 @@ namespace CarsFactory.Reports
 {
     public class GenerateDataFromZipFiles : IGenerateDataFromZipFiles
     {
-        public void GetDataFromZip(IMSSqlRepository repo, ICarsFactoryDbContext ctx)
+        public void SaveAllDataFromZip(IMSSqlRepository repo, ICarsFactoryDbContext ctx, string filePath)
         {
-            var filePath = @"..\..\..\..\SampleData.zip";
             var zip = ZipFile.Open(filePath, ZipArchiveMode.Read);
             using (zip)
             {
