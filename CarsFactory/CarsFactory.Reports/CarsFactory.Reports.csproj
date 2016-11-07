@@ -92,6 +92,8 @@
   <ItemGroup>
     <Compile Include="Contracts\IGenerateDataFromZipFiles.cs" />
     <Compile Include="Contracts\IGenerateDataFromMongoDb.cs" />
+    <Compile Include="Contracts\IGenerateJsonReport.cs" />
+    <Compile Include="Contracts\IGenerateXmlReport.cs" />
     <Compile Include="Documents\Abstract\AbstractDocumentAdapter.cs" />
     <Compile Include="Documents\Contracts\IDocumentAdapter.cs" />
     <Compile Include="Documents\IDocumentAdapterFactory.cs" />

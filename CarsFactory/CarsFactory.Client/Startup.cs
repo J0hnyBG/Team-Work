@@ -32,8 +32,11 @@ namespace CarsFactory.Client
                 After db is populated this will create the JSON reports
                 and save them all to the file system, named as per requirement
                 as well as to a MySQL database as JSON objects
-                GenerateJSONReport.GenerateJSON();
+            
+            var jsonReport = kernel.Get<IGenerateJsonReport>();
+            jsonReport.GenerateJson();
             */
+
 
             // Problem 1 - Write data in SQL Database from Zip files.
             var repo = kernel.Get<IMongoDbRepository>();
@@ -48,10 +51,11 @@ namespace CarsFactory.Client
                 await mongoData.SaveAllMongoData(repo, mssqlRepo, dbContext);
             }).Wait();
 
-             /* 
-                Task 3         
-                GenerateXmlReport.CreateReport();
-            */
+
+            //   Task 3
+            var xmlReport = kernel.Get<IGenerateXmlReport>();
+            xmlReport.CreateReport();
+
         }
     }
 }
