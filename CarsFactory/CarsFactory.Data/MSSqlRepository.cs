@@ -1,10 +1,10 @@
-﻿using CarsFactory.Data.Contracts;
-using CarsFactory.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using CarsFactory.Data.Contracts;
+using CarsFactory.Models;
 
 namespace CarsFactory.Data
 {
@@ -26,7 +26,7 @@ namespace CarsFactory.Data
         {
             try
             {
-                using (ctx= new CarsFactoryDbContext())
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var town in towns)
                     {

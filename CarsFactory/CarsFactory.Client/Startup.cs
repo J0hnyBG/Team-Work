@@ -22,16 +22,18 @@ namespace CarsFactory.Client
             kernel.Load(Assembly.GetExecutingAssembly());
 
             var dbContext = kernel.Get<ICarsFactoryDbContext>();
+
             // Problem 2
             var reportService = kernel.Get<IReportService>();
             reportService.SaveAllReports(@"..\..\..\Output\", dbContext);
 
-            // Problem 4 - JSON Reports
-            // After db is populated this will create the JSON reports
-            // and save them all to the file system, named as per requirement
-            // as well as to a MySQL database as JSON objects
-            //GenerateJSONReport.GenerateJSON();
-
+            /*
+                Problem 4 - JSON Reports
+                After db is populated this will create the JSON reports
+                and save them all to the file system, named as per requirement
+                as well as to a MySQL database as JSON objects
+                GenerateJSONReport.GenerateJSON();
+            */
 
             // Problem 1 - Write data in SQL Database from Zip files.
             var repo = kernel.Get<IMongoDbRepository>();
@@ -46,8 +48,10 @@ namespace CarsFactory.Client
                 await mongoData.SaveAllMongoData(repo, mssqlRepo, dbContext);
             }).Wait();
 
-            //// Task 3         
-            //GenerateXmlReport.CreateReport();
+             /* 
+                Task 3         
+                GenerateXmlReport.CreateReport();
+            */
         }
     }
 }

@@ -1,8 +1,14 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using MySql.Data.MySqlClient;
 
+/// <summary>
+/// 
+/// </summary>
 namespace CarsFactory.Utilities
-{
+{   
+    /// <summary>
+    /// MySql Connection.
+    /// </summary>
     public class MySqlConnect
     {
         private MySqlConnection connection;
@@ -11,13 +17,17 @@ namespace CarsFactory.Utilities
         private string uid;
         private string password;
 
-        //Constructor
+        /// <summary>
+        /// Start MySqlConnection.
+        /// </summary>
         public MySqlConnect()
         {
             this.Initialize();
         }
 
-        //Initialize database
+        /// <summary>
+        /// Make initialization.
+        /// </summary>
         private void Initialize()
         {
             this.server = "localhost";
@@ -50,36 +60,30 @@ namespace CarsFactory.Utilities
             this.connection = new MySqlConnection(connectionString);
         }
 
-        //open connection to database
-        private bool OpenConnection()
+       /// <summary>
+       /// Insert data into database.
+       /// </summary>
+       /// <param name="dataToInsert">Data to be insert.</param>
+        public void Insert(object dataToInsert)
         {
-            try
+            
+            if (this.OpenConnection() == true)
             {
-                this.connection.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
-                switch (ex.Number)
-                {
-                    case 0:
-                        Console.WriteLine("Cannot connect to server.  Contact administrator");
-                        break;
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = this.connection.CreateCommand();
+                cmd.CommandText = "INSERT INTO reports (report) VALUES(?report)";
+                cmd.Parameters.Add("?report", MySqlDbType.JSON).Value = dataToInsert;
 
-                    case 1045:
-                        Console.WriteLine("Invalid username/password, please try again");
-                        break;
-                }
-                return false;
+                cmd.ExecuteNonQuery();
+
+                this.CloseConnection();
             }
         }
 
-        //Close connection
+        /// <summary>
+        /// Closing connection.
+        /// </summary>
+        /// <returns>True, if it is closed.</returns>
         private bool CloseConnection()
         {
             try
@@ -94,23 +98,37 @@ namespace CarsFactory.Utilities
             }
         }
 
-        //Insert statement
-        public void Insert(object dataToInsert)
+        /// <summary>
+        /// Open connection.
+        /// </summary>
+        /// <returns>True, if it is opened.</returns>
+        private bool OpenConnection()
         {
-
-            //open connection
-            if (this.OpenConnection() == true)
+            try
             {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = this.connection.CreateCommand();
-                cmd.CommandText = "INSERT INTO reports (report) VALUES(?report)";
-                cmd.Parameters.Add("?report", MySqlDbType.JSON).Value = dataToInsert;
+                this.connection.Open();
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                /*
+                    When handling errors, you can your application's response based 
+                    on the error number.
+                    The two most common error numbers when connecting are as follows:
+                    0: Cannot connect to server.
+                    1045: Invalid user name and/or password.
+                */
+                switch (ex.Number)
+                {
+                    case 0:
+                        Console.WriteLine("Cannot connect to server.  Contact administrator");
+                        break;
 
-                //Execute command
-                cmd.ExecuteNonQuery();
-
-                //close connection
-                this.CloseConnection();
+                    case 1045:
+                        Console.WriteLine("Invalid username/password, please try again");
+                        break;
+                }
+                return false;
             }
         }
     }

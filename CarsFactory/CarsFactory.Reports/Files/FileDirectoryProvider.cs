@@ -5,7 +5,7 @@ using CarsFactory.Reports.Files.Contracts;
 namespace CarsFactory.Reports.Files
 {
     /// <summary>
-    /// Provides methods for creating directories and filestreams.
+    /// Provides methods for creating directories and file streams.
     /// </summary>
     public class FileDirectoryProvider : IFileDirectoryProvider
     {

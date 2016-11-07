@@ -47,7 +47,7 @@ namespace CarsFactory.Reports
         }
 
         /// <summary>
-        /// Gets an instance of each implemetation of IReport.
+        /// Gets an instance of each implementation of IReport.
         /// </summary>
         /// <returns>A collection of instantiated IReports.</returns>
         private IEnumerable<IReport> GetAllReports()

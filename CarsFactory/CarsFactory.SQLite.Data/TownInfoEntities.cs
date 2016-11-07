@@ -10,11 +10,11 @@ namespace CarsFactory.SQLite.Data
         {
         }
 
+        public virtual IDbSet<TownInfo> TownInfoes { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-
-        public virtual IDbSet<TownInfo> TownInfoes { get; set; }
     }
 }

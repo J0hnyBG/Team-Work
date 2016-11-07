@@ -33,6 +33,7 @@ namespace CarsFactory.Reports.ReportManagers
         /// <summary>
         /// Appends .pdf extension to a filename if missing.
         /// </summary>
+        /// <returns>Full name and extension.</returns>
         protected override string AppendFileExtension(string fileName)
         {
             if (fileName.EndsWith(FileExtension))

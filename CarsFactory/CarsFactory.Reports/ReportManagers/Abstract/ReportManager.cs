@@ -46,7 +46,7 @@ namespace CarsFactory.Reports.ReportManagers.Abstract
         /// Generates each of the contained reports to the specified directory.
         /// </summary>
         /// <param name="directoryLocation">The directory to save the reports to.</param>
-        /// <param name="dbContext">The datasource,</param>
+        /// <param name="dbContext">The datasource.</param>
         public void GenerateReports(string directoryLocation, ICarsFactoryDbContext dbContext)
         {
             if (this.Reports == null || this.Reports.Count == 0)
