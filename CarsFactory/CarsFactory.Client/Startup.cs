@@ -23,8 +23,8 @@ namespace CarsFactory.Client
 
             var dbContext = kernel.Get<ICarsFactoryDbContext>();
             // Problem 2
-            //var reportService = kernel.Get<IReportService>();
-            //reportService.SaveAllReports(@"..\..\..\Output\", dbContext);
+            var reportService = kernel.Get<IReportService>();
+            reportService.SaveAllReports(@"..\..\..\Output\", dbContext);
 
             // Problem 4 - JSON Reports
             // After db is populated this will create the JSON reports
