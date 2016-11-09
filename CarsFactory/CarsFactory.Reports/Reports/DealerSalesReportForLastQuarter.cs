@@ -10,9 +10,13 @@ namespace CarsFactory.Reports.Reports
 {
     public class DealerSalesReportForLastQuarter : IReport
     {
+        /// <summary>
+        /// Generates a new DealerSalesReportForLastQuarter.
+        /// </summary>
         public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var pastDate = DateTime.Now.AddMonths(-3);
+            Console.WriteLine(dbContext.Orders.First().TotalPrice);
 
             var dealerData = (from dealer in dbContext.Dealers
                               let cars = dealer.Cars.Where(car => car.OrderId != null
@@ -40,9 +44,9 @@ namespace CarsFactory.Reports.Reports
 
             foreach (var dealer in dealerData)
             {
-                var deal = new { Dealer = dealer.Name };
-                var list = new[] { deal }.ToList();
-                document.AddTabularData(list);
+                var deal = new { Dealer = dealer.Name + ", " + dealer.Town };
+                var dealerTableData = new[] { deal }.ToList();
+                document.AddTabularData(dealerTableData);
 
                 if (dealer.Cars.Count > 0)
                 {

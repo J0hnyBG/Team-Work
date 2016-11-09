@@ -2,6 +2,9 @@
 
 namespace CarsFactory.Reports.Files.Contracts
 {
+    /// <summary>
+    /// Provides an interface for directory and file management.
+    /// </summary>
     public interface IFileDirectoryProvider
     {
         bool DirectoryExists(string path);

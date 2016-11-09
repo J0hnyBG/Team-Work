@@ -4,15 +4,15 @@ using System.IO.Compression;
 using CarsFactory.Data;
 using CarsFactory.Models;
 using CarsFactory.Utilities;
+using CarsFactory.Reports.Contracts;
+using CarsFactory.Data.Contracts;
 
 namespace CarsFactory.Reports
 {
-    public class GenerateDataFromZipFiles
+    public class GenerateDataFromZipFiles : IGenerateDataFromZipFiles
     {
-        public void GetDataFromZip()
+        public void SaveAllDataFromZip(IMsSqlRepository repo, ICarsFactoryDbContext ctx, string filePath)
         {
-            var repo = new MSSqlRepository();
-            var filePath = @"..\..\..\..\SampleData.zip";
             var zip = ZipFile.Open(filePath, ZipArchiveMode.Read);
             using (zip)
             {
@@ -27,11 +27,11 @@ namespace CarsFactory.Reports
                 var engines = ExcelFromZip.GetAllEngines(new List<Engine>(), currentEngineEntries);
                 var models = ExcelFromZip.GetAllModels(new List<Model>(), currentModelEntries);
                 var cars = ExcelFromZip.GetAllCars(new List<Car>(), currentCarEntries);
-                repo.ExtractTownsFromZip(towns);
-                repo.ExtractPlatformsFromZip(platforms);
-                repo.ExtractEnginesFromZip(engines);
-                repo.ExtractModelsFromZip(models);
-                repo.ExtractCarsFromZip(cars);
+                repo.ExtractTowns(towns, ctx);
+                repo.ExtractPlatforms(platforms, ctx);
+                repo.ExtractEngines(engines, ctx);
+                repo.ExtractModels(models, ctx);
+                repo.ExtractCars(cars, ctx);
             }
         }
     }

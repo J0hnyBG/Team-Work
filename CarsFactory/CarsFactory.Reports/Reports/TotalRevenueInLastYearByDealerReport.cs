@@ -10,6 +10,9 @@ namespace CarsFactory.Reports.Reports
 {
     public class TotalRevenueInLastYearByDealerReport : IReport
     {
+        /// <summary>
+        /// Generates a new TotalRevenueInLastYearByDealerReport.
+        /// </summary>
         public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var lastYear = DateTime.Now.Year - 1;

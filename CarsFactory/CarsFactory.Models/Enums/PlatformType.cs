@@ -4,7 +4,7 @@
     {
         Compact = 100,
         Sedan = 200,
-        SUV = 300,
+        Suv = 300,
         Van = 400
     }
 }

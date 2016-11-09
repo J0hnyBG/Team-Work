@@ -1,11 +1,13 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Threading.Tasks;
 
 using CarsFactory.Models;
 
 namespace CarsFactory.Data.Contracts
 {
-    public interface ICarsFactoryDbContext
+    public interface ICarsFactoryDbContext : IDisposable
     {
         IDbSet<Car> Cars { get; set; }
 
@@ -26,5 +28,7 @@ namespace CarsFactory.Data.Contracts
         DbEntityEntry<T> Entry<T>(T entity) where T : class;
 
         void SaveChanges();
+
+        Task<int> SaveChangesAsync();
     }
 }

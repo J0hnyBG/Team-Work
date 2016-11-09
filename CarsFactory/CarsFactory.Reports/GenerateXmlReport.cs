@@ -3,23 +3,24 @@ using System.Linq;
 using System.Xml;
 
 using CarsFactory.Data;
+using CarsFactory.Reports.Contracts;
 
 namespace CarsFactory.Reports
 {
     /// <summary>
     /// Class for generating and saving XML
     /// </summary>
-    public static class GenerateXmlReport
+    public class GenerateXmlReport : IGenerateXmlReport
     {
         private const string ProcessInformation = "Gathering information...";
-        private const string SaveFilePath = @"..\..\..\SampleData\XML\";
+        private const string SaveFilePath = @"..\..\..\..\SampleData";
         private const string FileName = "CarProducedReport.xml";
         private const string RootName = "manufacturers";
 
         /// <summary>
         /// Creates XML reports and save them as a XML file
         /// </summary>
-        public static void CreateReport()
+        public void CreateReport()
         {
             Console.WriteLine(ProcessInformation);
             XmlDocument report = new XmlDocument();

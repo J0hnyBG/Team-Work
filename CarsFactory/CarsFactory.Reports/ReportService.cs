@@ -9,6 +9,9 @@ using CarsFactory.Reports.Reports.Contracts;
 
 namespace CarsFactory.Reports
 {
+    /// <summary>
+    /// Provides method for the generation of reports.
+    /// </summary>
     public class ReportService : IReportService
     {
         private readonly IEnumerable<IReportManager> reportManagers;
@@ -23,17 +26,30 @@ namespace CarsFactory.Reports
             this.reportManagers = reportManagers;
         }
 
+        /// <summary>
+        /// Saves all IReports in the assembly in the specified directory.
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <param name="dbContext"></param>
         public void SaveAllReports(string directoryPath, ICarsFactoryDbContext dbContext)
         {
             var allReports = this.GetAllReports();
 
-            foreach (var reportManager in this.reportManagers)
+            var enumerableReports = allReports as IReport[] ?? allReports.ToArray();
+            using (dbContext)
             {
-                reportManager.Add(allReports);
-                reportManager.GenerateReports(directoryPath, dbContext);
+                foreach (var reportManager in this.reportManagers)
+                {
+                    reportManager.Add(enumerableReports);
+                    reportManager.GenerateReports(directoryPath, dbContext);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets an instance of each implementation of IReport.
+        /// </summary>
+        /// <returns>A collection of instantiated IReports.</returns>
         private IEnumerable<IReport> GetAllReports()
         {
             var assembly = this.GetType()

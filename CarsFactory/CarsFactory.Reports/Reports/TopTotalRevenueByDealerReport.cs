@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using CarsFactory.Data;
 using CarsFactory.Data.Contracts;
 using CarsFactory.Models.Enums;
 using CarsFactory.Reports.Documents.Contracts;
@@ -11,6 +10,9 @@ namespace CarsFactory.Reports.Reports
 {
     public class TopTotalRevenueByDealerReport : IReport
     {
+        /// <summary>
+        /// Generates a new TopTotalRevenueByDealerReport.
+        /// </summary>
         public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var totalRevenueByDealers = (from dealer in dbContext.Dealers

@@ -7,6 +7,7 @@ namespace CarsFactory.Models
     {
         private const string HorsePowerNegativeOrZeroErrorMessage = "Horse power must be positive number";
         private int horsePower;
+
         public int Id { get; set; }
 
         public FuelType Fuel { get; set; }

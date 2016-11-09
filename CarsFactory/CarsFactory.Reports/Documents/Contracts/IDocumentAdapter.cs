@@ -2,6 +2,9 @@
 
 namespace CarsFactory.Reports.Documents.Contracts
 {
+    /// <summary>
+    /// Provides methods to abstract different kinds of documents from their implementation.
+    /// </summary>
     public interface IDocumentAdapter
     {
         string FileLocation { get; }

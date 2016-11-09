@@ -1,16 +1,17 @@
-﻿using CarsFactory.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using CarsFactory.Data.Contracts;
+using CarsFactory.Models;
 
 namespace CarsFactory.Data
 {
     /// <summary>
     /// Microsoft's SQL repository
     /// </summary>
-    public class MSSqlRepository
+    public class MsSqlRepository : IMsSqlRepository
     {
         public async Task CreateDb()
         {
@@ -21,15 +22,11 @@ namespace CarsFactory.Data
             }
         }
 
-        // TODO: Create DtoObjects
-
-        public void ExtractTownsFromZip(ICollection<Town> towns)
+        public void ExtractTowns(ICollection<Town> towns, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var town in towns)
                     {
@@ -49,13 +46,11 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractPlatformsFromZip(ICollection<Platform> platforms)
+        public void ExtractPlatforms(ICollection<Platform> platforms, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var platform in platforms)
                     {
@@ -75,13 +70,59 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractEnginesFromZip(ICollection<Engine> engines)
+        public void ExtractOrders(ICollection<Order> orders, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
+                using (ctx = new CarsFactoryDbContext())
+                {
+                    foreach (var order in orders)
+                    {
+                        if (!ctx.Orders.Any(p => p.Id == order.Id))
+                        {
+                            ctx.Orders.Add(order);
+                        }
+                    }
 
-                using (ctx)
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractManufacturers(ICollection<Manufacturer> manufacturers, ICarsFactoryDbContext ctx)
+        {
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
+                {
+                    foreach (var manufacturer in manufacturers)
+                    {
+                        if (!ctx.Manufacturers.Any(e => e.Id == manufacturer.Id))
+                        {
+                            ctx.Manufacturers.Add(manufacturer);
+                        }
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractEngines(ICollection<Engine> engines, ICarsFactoryDbContext ctx)
+        {
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var engine in engines)
                     {
@@ -101,13 +142,11 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractModelsFromZip(ICollection<Model> models)
+        public void ExtractModels(ICollection<Model> models, ICarsFactoryDbContext ctx)
         {
             try
             {
-                var ctx = new CarsFactoryDbContext();
-
-                using (ctx)
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var model in models)
                     {
@@ -127,13 +166,35 @@ namespace CarsFactory.Data
             }
         }
 
-        public void ExtractCarsFromZip(ICollection<Car> cars)
+        public void ExtractDealers(ICollection<Dealer> dealers, ICarsFactoryDbContext ctx)
         {
-            //try
-            //{
-                var ctx = new CarsFactoryDbContext();
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
+                {
+                    foreach (var dealer in dealers)
+                    {
+                        if (!ctx.Dealers.Any(m => m.Id == dealer.Id))
+                        {
+                            ctx.Dealers.Add(dealer);
+                        }
+                    }
 
-                using (ctx)
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractCars(ICollection<Car> cars, ICarsFactoryDbContext ctx)
+        {
+            try
+            {
+                using (ctx = new CarsFactoryDbContext())
                 {
                     foreach (var car in cars)
                     {
@@ -146,11 +207,11 @@ namespace CarsFactory.Data
                     ctx.SaveChanges();
                 }
 
-            //}
-            //catch (DbUpdateException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

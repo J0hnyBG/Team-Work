@@ -8,7 +8,6 @@ using CarsFactory.Models.Enums;
 
 namespace CarsFactory.Models
 {
-
     public class Order
     {
         private ICollection<Car> cars;

@@ -6,10 +6,11 @@ using CarsFactory.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using CarsFactory.MongoDb.Data.Contracts;
 
 namespace CarsFactory.MongoDb.Data
 {
-    public class MongoDbRepository
+    public class MongoDbRepository : IMongoDbRepository
     {
         private const string ConnectionString = "mongodb://pesho:gosho@ds033297.mlab.com:33297/factory";
         private static readonly MongoClient Client = new MongoClient(ConnectionString);

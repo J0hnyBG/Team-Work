@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -44,15 +43,11 @@ namespace CarsFactory.Client.NinjectBindings
 
                               var reportManagerTypes = assembly.GetTypes()
                                                                .Where(t => t.IsSubclassOf(typeof(ReportManager)));
-
-                              var result = new List<IReportManager>();
-                              foreach (Type reportManagerType in reportManagerTypes)
-                              {
-                                  var manager = context.Kernel.Get<IReportManager>(reportManagerType.Name);
-                                  result.Add(manager);
-                              }
-
-                              return result;
+                              var reportManagers =
+                                  reportManagerTypes.Select(reportManagerType =>
+                                                                context.Kernel.Get<IReportManager>(reportManagerType.Name))
+                                                    .ToList();
+                              return reportManagers;
                           })
                 .WhenInjectedExactlyInto<IReportService>();
         }

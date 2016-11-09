@@ -10,6 +10,9 @@ namespace CarsFactory.Reports.Reports
 {
     public class TopSellingManufacturersReport : IReport
     {
+        /// <summary>
+        /// Generates a new TopSellingManufacturersReport.
+        /// </summary>
         public void Generate(IDocumentAdapter document, ICarsFactoryDbContext dbContext)
         {
             var topManufacturers =
